@@ -1,4 +1,7 @@
 package com.kelompok5.secondhand.repository;
 
-public class UsersRepository {
+import com.kelompok5.secondhand.entity.Users;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UsersRepository extends JpaRepository<Users, Integer> {
 }
