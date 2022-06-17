@@ -1,5 +1,6 @@
 package com.kelompok5.secondhand.services;
 
+import com.kelompok5.secondhand.entity.Product;
 import com.kelompok5.secondhand.entity.Users;
 import com.kelompok5.secondhand.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
@@ -66,12 +67,15 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
     }
 
     @Override
-    public Users updateUser(Users body, Integer id) {
-        return null;
+    public Users updateUsers(Users body, Integer id) {
+        Users users = usersRepository.findById(id).orElseThrow();
+        users.setFullName(body.getFullName());
+        return usersRepository.save(users);
     }
 
     @Override
     public String deleteUser(Integer id) {
-        return null;
+         usersRepository.deleteById(id);
+         return "user telah dihapus";
     }
 }
