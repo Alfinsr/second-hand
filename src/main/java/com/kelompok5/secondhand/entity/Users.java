@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -38,4 +40,7 @@ public class Users {
 
     @Column
     private String kota;
+
+    @ManyToMany(fetch = FetchType.EAGER )
+    private Collection<Role> roles = new ArrayList<>();
 }

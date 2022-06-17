@@ -21,6 +21,12 @@ public class UsersController {
     @Autowired
     ModelMapper modelMapper;
 
+    @PostMapping("/signup")
+    public ResponseEntity<Users> postUsers(@RequestBody UsersDto usersDto){
+        Users users = modelMapper.map(usersDto, Users.class);
+        return new ResponseEntity<>(usersServices.postUsers(users), HttpStatus.CREATED);
+    }
+
     @GetMapping("/Users")
     public ResponseEntity<List<Users>> getAllUsers(){
         return new ResponseEntity<>(usersServices.getAllUsers(), HttpStatus.OK);
