@@ -14,7 +14,7 @@
 	<name>second-hand</name>
 	<description>Final Project Second Hand</description>
 	<properties>
-		<java.version>10</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
