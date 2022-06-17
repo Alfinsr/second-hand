@@ -12,6 +12,6 @@ public interface UsersServices {
     Users postUsers(Users body);
     List<Users> getAllUsers();
     Optional<Users> getUserById(Integer id);
-    Users updateUser(Users body, Integer id);
+    Users updateUsers(Users body, Integer id);
     String deleteUser(Integer id);
 }
