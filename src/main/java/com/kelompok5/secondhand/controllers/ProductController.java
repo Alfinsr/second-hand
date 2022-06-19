@@ -2,15 +2,22 @@ package com.kelompok5.secondhand.controllers;
 
 import com.kelompok5.secondhand.dto.ProductDto;
 import com.kelompok5.secondhand.entity.Product;
+import com.kelompok5.secondhand.result.DataResult;
+import com.kelompok5.secondhand.result.Result;
+import com.kelompok5.secondhand.services.CloudinaryStorageService;
+import com.kelompok5.secondhand.services.CloudinaryStorageServiceImpl;
 import com.kelompok5.secondhand.services.ProductServices;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController @RequiredArgsConstructor
@@ -19,23 +26,36 @@ public class ProductController {
     @Autowired
     private final ProductServices productServices;
 
+    @Autowired
+    private final CloudinaryStorageService cloudinaryStorageService;
+
 
     @Autowired
     ModelMapper modelMapper;
 
-    @PostMapping("/Product")
-    public ResponseEntity<Product> postProduct(@RequestBody ProductDto ProductDto) {
-        Product Product = modelMapper.map(ProductDto, Product.class);
-        return new ResponseEntity<>(productServices.postProduct(Product), HttpStatus.CREATED);
+    @PostMapping(value = "/Product",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Result> postProduct(ProductDto productDto) {
+        Map<?, ?> uploadImage = (Map<?, ?>) cloudinaryStorageService.upload(productDto.getFotoProduct()).getData();
+       Product product = new Product();
+       product.setFotoProduct(uploadImage.get("url").toString());
+       product.setDeskripsiProduct(productDto.getDeskripsiProduct());
+       product.setHargaProduct(productDto.getHargaProduct());
+       product.setNamaProduct(productDto.getNamaProduct());
+       product.setIdKategori(productDto.getIdKategori());
+       product.setIdUser(productDto.getIdUser());
+       product.setStatusProduct(productDto.getStatusProduct());
+        return new ResponseEntity<>(productServices.postProduct(product), HttpStatus.CREATED);
     }
     @GetMapping("/Product")
-    public ResponseEntity<List<Product>> getAllProduct(){
+    public ResponseEntity<DataResult<List<Product>>> getAllProduct(){
         return new ResponseEntity<>(productServices.getAllProduct(), HttpStatus.OK);
     }
     @PutMapping("/Product/{id}")
-    public ResponseEntity<Product> updateProduct(@RequestBody ProductDto ProductDto, @PathVariable Integer id){
-        Product Product = modelMapper.map(ProductDto, Product.class);
-        return new ResponseEntity<>(productServices.updateProduct(Product, id), HttpStatus.ACCEPTED);
+    public ResponseEntity<Product> updateProduct(@RequestBody ProductDto productDto, @PathVariable Integer id){
+        Product product = modelMapper.map(productDto, Product.class);
+        return new ResponseEntity<>(productServices.updateProduct(product, id), HttpStatus.ACCEPTED);
     }
 }
 

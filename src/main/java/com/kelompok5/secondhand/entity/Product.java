@@ -1,4 +1,5 @@
 package com.kelompok5.secondhand.entity;
+import com.kelompok5.secondhand.utils.StatusProductEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class Product {
     private String namaProduct;
 
     @Column
-    private String hargaProduct;
+    private Integer hargaProduct;
 
     @Column
     private String deskripsiProduct;
@@ -28,11 +29,12 @@ public class Product {
     private String fotoProduct;
 
     @Column
-    private String idKategori;
+    private Integer idKategori;
 
     @Column
-    private String idUser;
+    private Integer idUser;
 
     @Column
-    private String statusProduct;
+    @Enumerated(EnumType.ORDINAL)
+    private StatusProductEnum statusProduct= StatusProductEnum.DIBUAT;
 }

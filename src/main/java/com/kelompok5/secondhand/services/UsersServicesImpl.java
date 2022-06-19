@@ -6,6 +6,7 @@ import com.kelompok5.secondhand.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -67,9 +68,15 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
     }
 
     @Override
-    public Users updateUsers(Users body, Integer id) {
-        Users users = usersRepository.findById(id).orElseThrow();
+    public Users updateUsers(Users body,String username) {
+        Users users = usersRepository.findByUsername(username);
         users.setFullName(body.getFullName());
+        users.setPassword(bCryptPasswordEncoder.encode(body.getPassword()));
+        users.setAlamat(body.getAlamat());
+        users.setEmail(body.getEmail());
+        users.setKota(body.getKota());
+        users.setNoWa(body.getNoWa());
+        users.setUsername(body.getUsername());
         return usersRepository.save(users);
     }
 
