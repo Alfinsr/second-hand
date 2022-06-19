@@ -4,11 +4,12 @@ import com.kelompok5.secondhand.dto.UsersDto;
 import com.kelompok5.secondhand.entity.Users;
 import com.kelompok5.secondhand.services.UsersServices;
 import lombok.RequiredArgsConstructor;
-import net.bytebuddy.implementation.auxiliary.AuxiliaryType;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
@@ -32,15 +33,21 @@ public class UsersController {
         return new ResponseEntity<>(usersServices.getAllUsers(), HttpStatus.OK);
     }
 
+    @GetMapping("/current")
+    public String currentUser(Authentication authentication){
+        return authentication.getName();
+    }
+
     @GetMapping("/Users/{id}")
     public ResponseEntity<Optional<Users>> getUsersById(@PathVariable Integer id) {
         return new ResponseEntity<>(usersServices.getUserById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/Users/{id}")
-    public ResponseEntity<Users> updateUsers(@RequestBody UsersDto UsersDto, @PathVariable Integer id) {
+    @PutMapping("/Users")
+    public ResponseEntity<Users> updateUsers(@RequestBody UsersDto UsersDto, Authentication authentication) {
+       String username =  authentication.getName();
         Users users = modelMapper.map(UsersDto, Users.class);
-        return new ResponseEntity<>(usersServices.updateUsers(users, id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(usersServices.updateUsers(users, username), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/Users/{id}")

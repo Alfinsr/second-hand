@@ -2,30 +2,42 @@ package com.kelompok5.secondhand.services;
 
 import com.kelompok5.secondhand.entity.Product;
 import com.kelompok5.secondhand.repository.ProductRepository;
+import com.kelompok5.secondhand.result.DataResult;
+import com.kelompok5.secondhand.result.Result;
+import com.kelompok5.secondhand.result.SuccessDataResult;
+import com.kelompok5.secondhand.result.SuccessResult;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProductServicesImpl implements ProductServices {
+
+
 
     @Autowired
     private final ProductRepository productRepository;
     @Override
-    public List<Product> getAllProduct() {
-        return productRepository.findAll();
+    public DataResult<List<Product>> getAllProduct() {
+        return new SuccessDataResult<>(productRepository.findAll(),"success get all products") ;
     }
     @Override
-    public Product postProduct(Product body) {
+    public Result postProduct(Product body) {
         productRepository.save(body);
-        return body;
+
+       return new SuccessDataResult<>(body,"Success post products");
     }
     @Override
     public Product updateProduct(Product body, Integer id) {
-        Product Product = productRepository.findById(id).orElseThrow();
-        Product.setNamaProduct(body.getNamaProduct());
-        return productRepository.save(Product);
+        Product product = productRepository.findById(id).orElseThrow();
+        product.setNamaProduct(body.getNamaProduct());
+        return productRepository.save(product);
     }
 }
