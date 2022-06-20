@@ -51,6 +51,11 @@ public class ProductController {
     @GetMapping("/Product")
     public ResponseEntity<DataResult<List<Product>>> getAllProduct(){
         return new ResponseEntity<>(productServices.getAllProduct(), HttpStatus.OK);
+
+    }
+    @GetMapping("/Product/{id}")
+    public ResponseEntity<Optional<Product>> getProductById(@PathVariable Integer id){
+        return new ResponseEntity<>(productServices.getProductById(id), HttpStatus.OK);
     }
     @PutMapping(value= "/Product/{id}",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},

@@ -16,5 +16,6 @@ import java.util.Optional;
 public interface ProductServices {
     DataResult<List<Product>> getAllProduct();
     Result postProduct(Product body);
+    Optional<Product>getProductById(Integer id);
     Result updateProduct(Product body, Integer id);
     }
