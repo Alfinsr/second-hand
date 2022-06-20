@@ -52,9 +52,11 @@ public class ProductController {
     public ResponseEntity<DataResult<List<Product>>> getAllProduct(){
         return new ResponseEntity<>(productServices.getAllProduct(), HttpStatus.OK);
     }
-    @PutMapping( "/Product/{id}")
+    @PutMapping(value= "/Product/{id}",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Result> updateProduct(ProductDto productDto, @PathVariable Integer id){
-        System.out.println(id);
+
         Map<?, ?> uploadImage = (Map<?, ?>) cloudinaryStorageService.upload(productDto.getFotoProduct()).getData();
         Product product = new Product();
         product.setFotoProduct(uploadImage.get("url").toString());
