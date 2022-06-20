@@ -1,5 +1,6 @@
 package com.kelompok5.secondhand.services;
 
+import com.kelompok5.secondhand.dto.ProductDto;
 import com.kelompok5.secondhand.entity.Product;
 import com.kelompok5.secondhand.repository.ProductRepository;
 import com.kelompok5.secondhand.result.DataResult;
@@ -24,6 +25,10 @@ public class ProductServicesImpl implements ProductServices {
 
     @Autowired
     private final ProductRepository productRepository;
+
+    @Autowired
+    private final CloudinaryStorageService cloudinaryStorageService;
+
     @Override
     public DataResult<List<Product>> getAllProduct() {
         return new SuccessDataResult<>(productRepository.findAll(),"success get all products") ;
@@ -35,9 +40,18 @@ public class ProductServicesImpl implements ProductServices {
        return new SuccessDataResult<>(body,"Success post products");
     }
     @Override
-    public Product updateProduct(Product body, Integer id) {
+    public Result updateProduct(Product body, Integer id) {
+        System.out.println(id);
         Product product = productRepository.findById(id).orElseThrow();
         product.setNamaProduct(body.getNamaProduct());
-        return productRepository.save(product);
+        product.setHargaProduct(body.getHargaProduct());
+        product.setDeskripsiProduct(body.getDeskripsiProduct());
+        product.setFotoProduct(body.getFotoProduct());
+        product.setIdKategori(body.getIdKategori());
+        product.setIdUser(body.getIdUser());
+        product.setStatusProduct(body.getStatusProduct());
+        productRepository.save(product);
+
+        return new SuccessDataResult<>(body,"Success Update products");
     }
 }

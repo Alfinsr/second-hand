@@ -1,6 +1,7 @@
 package com.kelompok5.secondhand.services;
 
 
+import com.kelompok5.secondhand.dto.ProductDto;
 import com.kelompok5.secondhand.entity.Product;
 import com.kelompok5.secondhand.result.DataResult;
 import com.kelompok5.secondhand.result.Result;
@@ -15,5 +16,5 @@ import java.util.Optional;
 public interface ProductServices {
     DataResult<List<Product>> getAllProduct();
     Result postProduct(Product body);
-    Product updateProduct(Product body, Integer id);
+    Result updateProduct(Product body, Integer id);
     }
