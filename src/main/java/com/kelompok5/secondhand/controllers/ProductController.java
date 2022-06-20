@@ -52,9 +52,18 @@ public class ProductController {
     public ResponseEntity<DataResult<List<Product>>> getAllProduct(){
         return new ResponseEntity<>(productServices.getAllProduct(), HttpStatus.OK);
     }
-    @PutMapping("/Product/{id}")
-    public ResponseEntity<Product> updateProduct(@RequestBody ProductDto productDto, @PathVariable Integer id){
-        Product product = modelMapper.map(productDto, Product.class);
+    @PutMapping( "/Product/{id}")
+    public ResponseEntity<Result> updateProduct(ProductDto productDto, @PathVariable Integer id){
+        System.out.println(id);
+        Map<?, ?> uploadImage = (Map<?, ?>) cloudinaryStorageService.upload(productDto.getFotoProduct()).getData();
+        Product product = new Product();
+        product.setFotoProduct(uploadImage.get("url").toString());
+        product.setDeskripsiProduct(productDto.getDeskripsiProduct());
+        product.setHargaProduct(productDto.getHargaProduct());
+        product.setNamaProduct(productDto.getNamaProduct());
+        product.setIdKategori(productDto.getIdKategori());
+        product.setIdUser(productDto.getIdUser());
+        product.setStatusProduct(productDto.getStatusProduct());
         return new ResponseEntity<>(productServices.updateProduct(product, id), HttpStatus.ACCEPTED);
     }
 }
