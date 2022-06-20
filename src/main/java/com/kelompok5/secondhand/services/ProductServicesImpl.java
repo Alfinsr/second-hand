@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Map;
 
 @Service
@@ -32,6 +33,10 @@ public class ProductServicesImpl implements ProductServices {
     @Override
     public DataResult<List<Product>> getAllProduct() {
         return new SuccessDataResult<>(productRepository.findAll(),"success get all products") ;
+    }
+    @Override
+    public Optional<Product> getProductById(Integer id) {
+        return productRepository.findById(id);
     }
     @Override
     public Result postProduct(Product body) {
