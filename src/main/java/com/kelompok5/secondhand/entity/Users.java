@@ -33,6 +33,9 @@ public class Users {
     private String password;
 
     @Column
+    private String profileFoto;
+
+    @Column
     private String noWa;
 
     @Column
