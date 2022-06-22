@@ -17,11 +17,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Map;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class ProductServicesImpl implements ProductServices {
-
 
 
     @Autowired
@@ -32,18 +33,21 @@ public class ProductServicesImpl implements ProductServices {
 
     @Override
     public DataResult<List<Product>> getAllProduct() {
-        return new SuccessDataResult<>(productRepository.findAll(),"success get all products") ;
+        return new SuccessDataResult<>(productRepository.findAll(), "success get all products");
     }
+
     @Override
     public Optional<Product> getProductById(Integer id) {
         return productRepository.findById(id);
     }
+
     @Override
     public Result postProduct(Product body) {
         productRepository.save(body);
 
-       return new SuccessDataResult<>(body,"Success post products");
+        return new SuccessDataResult<>(body, "Success post products");
     }
+
     @Override
     public Result updateProduct(Product body, Integer id) {
         System.out.println(id);
@@ -57,6 +61,12 @@ public class ProductServicesImpl implements ProductServices {
         product.setStatusProduct(body.getStatusProduct());
         productRepository.save(product);
 
-        return new SuccessDataResult<>(body,"Success Update products");
+        return new SuccessDataResult<>(body, "Success Update products");
+    }
+
+    @Override
+    public String deleteProduct(Integer id) {
+        productRepository.deleteById(id);
+        return "product with "+id+" has been deleted";
     }
 }

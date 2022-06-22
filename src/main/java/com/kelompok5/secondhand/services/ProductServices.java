@@ -18,4 +18,5 @@ public interface ProductServices {
     Result postProduct(Product body);
     Optional<Product>getProductById(Integer id);
     Result updateProduct(Product body, Integer id);
-    }
+    String deleteProduct(Integer id);
+}
