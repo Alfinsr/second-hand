@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController @RequiredArgsConstructor
+
 public class ProductController {
 
     @Autowired
@@ -75,6 +76,10 @@ public class ProductController {
         product.setIdUser(productDto.getIdUser());
         product.setStatusProduct(productDto.getStatusProduct());
         return new ResponseEntity<>(productServices.updateProduct(product, id), HttpStatus.ACCEPTED);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProduct(@RequestParam("query") String query){
+        return ResponseEntity.ok(productServices.searchProduct(query));
     }
 
     @DeleteMapping("/product/{id}")

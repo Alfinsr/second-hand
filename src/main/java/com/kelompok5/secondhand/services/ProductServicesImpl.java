@@ -69,4 +69,9 @@ public class ProductServicesImpl implements ProductServices {
         productRepository.deleteById(id);
         return "product with "+id+" has been deleted";
     }
+    @Override
+    public List<Product> searchProduct(String query) {
+        List<Product> products = productRepository.searchProduct(query);
+        return products;
+    }
 }
