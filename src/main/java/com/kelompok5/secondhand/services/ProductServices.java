@@ -19,4 +19,5 @@ public interface ProductServices {
     Optional<Product>getProductById(Integer id);
     Result updateProduct(Product body, Integer id);
     List<Product> searchProduct(String query);
-    }
+    String deleteProduct(Integer id);
+}

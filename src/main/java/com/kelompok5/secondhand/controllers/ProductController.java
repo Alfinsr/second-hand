@@ -39,29 +39,32 @@ public class ProductController {
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Result> postProduct(ProductDto productDto) {
         Map<?, ?> uploadImage = (Map<?, ?>) cloudinaryStorageService.upload(productDto.getFotoProduct()).getData();
-       Product product = new Product();
-       product.setFotoProduct(uploadImage.get("url").toString());
-       product.setDeskripsiProduct(productDto.getDeskripsiProduct());
-       product.setHargaProduct(productDto.getHargaProduct());
-       product.setNamaProduct(productDto.getNamaProduct());
-       product.setIdKategori(productDto.getIdKategori());
-       product.setIdUser(productDto.getIdUser());
-       product.setStatusProduct(productDto.getStatusProduct());
+        Product product = new Product();
+        product.setFotoProduct(uploadImage.get("url").toString());
+        product.setDeskripsiProduct(productDto.getDeskripsiProduct());
+        product.setHargaProduct(productDto.getHargaProduct());
+        product.setNamaProduct(productDto.getNamaProduct());
+        product.setIdKategori(productDto.getIdKategori());
+        product.setIdUser(productDto.getIdUser());
+        product.setStatusProduct(productDto.getStatusProduct());
         return new ResponseEntity<>(productServices.postProduct(product), HttpStatus.CREATED);
     }
+
     @GetMapping("/Product")
-    public ResponseEntity<DataResult<List<Product>>> getAllProduct(){
+    public ResponseEntity<DataResult<List<Product>>> getAllProduct() {
         return new ResponseEntity<>(productServices.getAllProduct(), HttpStatus.OK);
 
     }
+
     @GetMapping("/Product/{id}")
-    public ResponseEntity<Optional<Product>> getProductById(@PathVariable Integer id){
+    public ResponseEntity<Optional<Product>> getProductById(@PathVariable Integer id) {
         return new ResponseEntity<>(productServices.getProductById(id), HttpStatus.OK);
     }
-    @PutMapping(value= "/Product/{id}",
+
+    @PutMapping(value = "/Product/{id}",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Result> updateProduct(ProductDto productDto, @PathVariable Integer id){
+    public ResponseEntity<Result> updateProduct(ProductDto productDto, @PathVariable Integer id) {
 
         Map<?, ?> uploadImage = (Map<?, ?>) cloudinaryStorageService.upload(productDto.getFotoProduct()).getData();
         Product product = new Product();
@@ -74,11 +77,14 @@ public class ProductController {
         product.setStatusProduct(productDto.getStatusProduct());
         return new ResponseEntity<>(productServices.updateProduct(product, id), HttpStatus.ACCEPTED);
     }
-
     @GetMapping("/search")
     public ResponseEntity<List<Product>> searchProduct(@RequestParam("query") String query){
         return ResponseEntity.ok(productServices.searchProduct(query));
     }
 
+    @DeleteMapping("/product/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable Integer id){
+        return new ResponseEntity<>(productServices.deleteProduct(id), HttpStatus.ACCEPTED);
+    }
 }
 
