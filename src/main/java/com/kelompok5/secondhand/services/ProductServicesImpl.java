@@ -59,4 +59,9 @@ public class ProductServicesImpl implements ProductServices {
 
         return new SuccessDataResult<>(body,"Success Update products");
     }
+    @Override
+    public List<Product> searchProduct(String query) {
+        List<Product> products = productRepository.searchProduct(query);
+        return products;
+    }
 }
