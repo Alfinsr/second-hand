@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,16 +39,8 @@ public class ProductController {
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Result> postProduct(ProductDto productDto) {
-        Map<?, ?> uploadImage = (Map<?, ?>) cloudinaryStorageService.upload(productDto.getFotoProduct()).getData();
-        Product product = new Product();
-        product.setFotoProduct(uploadImage.get("url").toString());
-        product.setDeskripsiProduct(productDto.getDeskripsiProduct());
-        product.setHargaProduct(productDto.getHargaProduct());
-        product.setNamaProduct(productDto.getNamaProduct());
-        product.setIdKategori(productDto.getIdKategori());
-        product.setIdUser(productDto.getIdUser());
-        product.setStatusProduct(productDto.getStatusProduct());
-        return new ResponseEntity<>(productServices.postProduct(product), HttpStatus.CREATED);
+
+        return new ResponseEntity<>(productServices.postProduct(productDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/Product")
@@ -61,21 +54,19 @@ public class ProductController {
         return new ResponseEntity<>(productServices.getProductById(id), HttpStatus.OK);
     }
 
+//    @GetMapping("/product-user")
+//    public ResponseEntity<List<Product>> getProductByUser(Authentication authentication){
+//        return new ResponseEntity<>(productServices.getProductByUser(authentication.getName()), HttpStatus.OK);
+//
+//    }
+
     @PutMapping(value = "/Product/{id}",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Result> updateProduct(ProductDto productDto, @PathVariable Integer id) {
 
-        Map<?, ?> uploadImage = (Map<?, ?>) cloudinaryStorageService.upload(productDto.getFotoProduct()).getData();
-        Product product = new Product();
-        product.setFotoProduct(uploadImage.get("url").toString());
-        product.setDeskripsiProduct(productDto.getDeskripsiProduct());
-        product.setHargaProduct(productDto.getHargaProduct());
-        product.setNamaProduct(productDto.getNamaProduct());
-        product.setIdKategori(productDto.getIdKategori());
-        product.setIdUser(productDto.getIdUser());
-        product.setStatusProduct(productDto.getStatusProduct());
-        return new ResponseEntity<>(productServices.updateProduct(product, id), HttpStatus.ACCEPTED);
+
+        return new ResponseEntity<>(productServices.updateProduct(productDto, id), HttpStatus.ACCEPTED);
     }
     @GetMapping("/search")
     public ResponseEntity<List<Product>> searchProduct(@RequestParam("query") String query){

@@ -15,9 +15,11 @@ import java.util.Optional;
 @Component
 public interface ProductServices {
     DataResult<List<Product>> getAllProduct();
-    Result postProduct(Product body);
+    Result postProduct(ProductDto body);
     Optional<Product>getProductById(Integer id);
-    Result updateProduct(Product body, Integer id);
+    Result updateProduct(ProductDto body, Integer id);
     List<Product> searchProduct(String query);
     String deleteProduct(Integer id);
+
+//    List<Product> getProductByUser(String username);
 }

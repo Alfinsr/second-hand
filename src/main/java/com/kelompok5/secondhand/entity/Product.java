@@ -1,10 +1,12 @@
 package com.kelompok5.secondhand.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kelompok5.secondhand.utils.StatusProductEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -25,16 +27,19 @@ public class Product {
     @Column
     private String deskripsiProduct;
 
-    @Column
-    private String fotoProduct;
 
     @Column
     private Integer idKategori;
 
-    @Column
-    private Integer idUser;
+    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
+    private Users users;
 
     @Column
     @Enumerated(EnumType.ORDINAL)
     private StatusProductEnum statusProduct= StatusProductEnum.DIBUAT;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ImageProduct> imageProduct;
 }
