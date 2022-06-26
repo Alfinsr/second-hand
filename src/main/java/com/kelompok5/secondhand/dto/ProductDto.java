@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,9 +18,9 @@ public class ProductDto {
     private String namaProduct;
     private Integer hargaProduct;
     private String deskripsiProduct;
-    private MultipartFile fotoProduct;
     private Integer idKategori;
     private Integer idUser;
+    private List<MultipartFile> imageProduct;
     private StatusProductEnum statusProduct;
 
 }

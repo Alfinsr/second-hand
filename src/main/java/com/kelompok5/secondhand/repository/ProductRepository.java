@@ -13,4 +13,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "Or p.deskripsiProduct LIKE CONCAT('%',:query, '%')")
     List<Product> searchProduct(String query);
 
+
+//    List<Product> findByusername(String username);
+
 }
