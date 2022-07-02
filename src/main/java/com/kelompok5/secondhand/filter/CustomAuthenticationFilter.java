@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kelompok5.secondhand.entity.Users;
+import com.kelompok5.secondhand.result.SuccessDataResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -54,15 +55,16 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
 
-//        response.setHeader("accessToken", accessToken);
-//        response.setHeader("refreshToken", refreshToken);
+
 
         Map<String, String> tokens = new HashMap<>();
         tokens.put("username", user.getUsername());
         tokens.put("accessToken", accessToken);
         tokens.put("refreshToken", refreshToken);
+
         response.setContentType(APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+        new ObjectMapper().writeValue(response.getOutputStream(),
+                new SuccessDataResult<>(tokens, "Sucess signin"));
         super.successfulAuthentication(request, response, chain, authentication);
     }
 }

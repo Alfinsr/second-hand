@@ -2,6 +2,7 @@ package com.kelompok5.secondhand.controllers;
 
 import com.kelompok5.secondhand.dto.UsersDto;
 import com.kelompok5.secondhand.entity.Users;
+import com.kelompok5.secondhand.result.Result;
 import com.kelompok5.secondhand.services.CloudinaryStorageService;
 import com.kelompok5.secondhand.services.UsersServices;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +29,13 @@ public class UsersController {
     ModelMapper modelMapper;
 
     @PostMapping("/signup")
-    public ResponseEntity<Users> postUsers(@RequestBody UsersDto usersDto) {
+    public ResponseEntity<Result> postUsers(@RequestBody UsersDto usersDto) {
         Users users = modelMapper.map(usersDto, Users.class);
         return new ResponseEntity<>(usersServices.postUsers(users), HttpStatus.CREATED);
     }
 
     @GetMapping("/Users")
-    public ResponseEntity<List<Users>> getAllUsers() {
+    public ResponseEntity<Result> getAllUsers() {
         return new ResponseEntity<>(usersServices.getAllUsers(), HttpStatus.OK);
     }
 
@@ -44,12 +45,12 @@ public class UsersController {
     }
 
     @GetMapping("/Users/{id}")
-    public ResponseEntity<Optional<Users>> getUsersById(@PathVariable Integer id) {
+    public ResponseEntity<Result> getUsersById(@PathVariable Integer id) {
         return new ResponseEntity<>(usersServices.getUserById(id), HttpStatus.OK);
     }
 
     @PutMapping("/Users")
-    public ResponseEntity<Users> updateUsers(@RequestBody UsersDto usersDto, Authentication authentication) {
+    public ResponseEntity<Result> updateUsers(UsersDto usersDto, Authentication authentication) {
        String username =  authentication.getName();
         Map<?, ?> uploadImage = (Map<?, ?>) cloudinaryStorageService.upload(usersDto.getProfileFoto()).getData();
         Users users = new Users();
@@ -66,7 +67,7 @@ public class UsersController {
     }
 
     @DeleteMapping("/Users/{id}")
-    public ResponseEntity<String> deleteUsers(@PathVariable Integer id){
+    public ResponseEntity<Result> deleteUsers(@PathVariable Integer id){
         return new ResponseEntity<>(usersServices.deleteUser(id), HttpStatus.ACCEPTED);
     }
 }

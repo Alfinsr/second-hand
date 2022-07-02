@@ -1,12 +1,14 @@
 package com.kelompok5.secondhand.services;
 
-import com.kelompok5.secondhand.entity.Product;
+
 import com.kelompok5.secondhand.entity.Users;
 import com.kelompok5.secondhand.repository.UsersRepository;
+import com.kelompok5.secondhand.result.Result;
+import com.kelompok5.secondhand.result.SuccessDataResult;
+import com.kelompok5.secondhand.result.SuccessResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -45,7 +47,7 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
     }
 
     @Override
-    public Users postUsers(Users body) {
+    public Result postUsers(Users body) {
         Users usersExists =   usersRepository.findByUsername(body.getUsername());
         if(usersExists != null){
             throw  new IllegalArgumentException(String.format("User with username '%s' already exists", body.getUsername()));
@@ -53,22 +55,24 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
         String encodePassword = bCryptPasswordEncoder.encode(body.getPassword());
         body.setPassword(encodePassword);
         usersRepository.save(body);
-        return body;
+        return new SuccessDataResult(body, "Success Register User");
 
     }
 
     @Override
-    public List<Users> getAllUsers() {
-        return usersRepository.findAll();
+    public Result getAllUsers() {
+        List<Users> users = usersRepository.findAll();
+        return new SuccessDataResult(users, "Success get all users");
     }
 
     @Override
-    public Optional<Users> getUserById(Integer id) {
-        return usersRepository.findById(id);
+    public Result getUserById(Integer id) {
+     Optional<Users> users=    usersRepository.findById(id);
+     return  new SuccessDataResult(users,"Success Get User By Id");
     }
 
     @Override
-    public Users updateUsers(Users body,String username) {
+    public Result updateUsers(Users body,String username) {
         Users users = usersRepository.findByUsername(username);
         users.setFullName(body.getFullName());
         users.setPassword(bCryptPasswordEncoder.encode(body.getPassword()));
@@ -76,13 +80,14 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
         users.setEmail(body.getEmail());
         users.setKota(body.getKota());
         users.setNoWa(body.getNoWa());
-        users.setUsername(body.getUsername());
-        return usersRepository.save(users);
+        users.setProfileFoto(body.getProfileFoto());
+        usersRepository.save(users);
+        return new SuccessResult("success update profile");
     }
 
     @Override
-    public String deleteUser(Integer id) {
+    public Result deleteUser(Integer id) {
          usersRepository.deleteById(id);
-         return "user telah dihapus";
+         return new SuccessResult("Sucess Delete User");
     }
 }

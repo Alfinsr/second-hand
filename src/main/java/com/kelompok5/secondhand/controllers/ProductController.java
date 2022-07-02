@@ -5,23 +5,23 @@ import com.kelompok5.secondhand.entity.Product;
 import com.kelompok5.secondhand.result.DataResult;
 import com.kelompok5.secondhand.result.Result;
 import com.kelompok5.secondhand.services.CloudinaryStorageService;
-import com.kelompok5.secondhand.services.CloudinaryStorageServiceImpl;
 import com.kelompok5.secondhand.services.ProductServices;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController @RequiredArgsConstructor
+@Slf4j
 
 public class ProductController {
 
@@ -44,8 +44,9 @@ public class ProductController {
     }
 
     @GetMapping("/Product")
-    public ResponseEntity<DataResult<List<Product>>> getAllProduct() {
-        return new ResponseEntity<>(productServices.getAllProduct(), HttpStatus.OK);
+    public ResponseEntity<DataResult<List<Product>>> getAllProduct(@RequestParam(value = "q",required = false)String q,@RequestParam(value = "kategori",required = false) String kategori) {
+
+        return new ResponseEntity<>(productServices.getAllProduct(kategori,q), HttpStatus.OK);
 
     }
 
@@ -54,11 +55,11 @@ public class ProductController {
         return new ResponseEntity<>(productServices.getProductById(id), HttpStatus.OK);
     }
 
-//    @GetMapping("/product-user")
-//    public ResponseEntity<List<Product>> getProductByUser(Authentication authentication){
-//        return new ResponseEntity<>(productServices.getProductByUser(authentication.getName()), HttpStatus.OK);
-//
-//    }
+    @GetMapping("/product-user")
+    public ResponseEntity<DataResult<List<Product>>> getProductByUser(Authentication authentication){
+        return new ResponseEntity<>(productServices.getProductByUser(authentication.getName()), HttpStatus.OK);
+
+    }
 
     @PutMapping(value = "/Product/{id}",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
@@ -68,13 +69,10 @@ public class ProductController {
 
         return new ResponseEntity<>(productServices.updateProduct(productDto, id), HttpStatus.ACCEPTED);
     }
-    @GetMapping("/search")
-    public ResponseEntity<List<Product>> searchProduct(@RequestParam("query") String query){
-        return ResponseEntity.ok(productServices.searchProduct(query));
-    }
+
 
     @DeleteMapping("/product/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable Integer id){
+    public ResponseEntity<Result> deleteProduct(@PathVariable Integer id){
         return new ResponseEntity<>(productServices.deleteProduct(id), HttpStatus.ACCEPTED);
     }
 }

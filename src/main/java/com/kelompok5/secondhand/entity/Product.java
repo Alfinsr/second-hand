@@ -28,13 +28,14 @@ public class Product {
     private String deskripsiProduct;
 
 
-    @Column
-    private Integer idKategori;
-
     @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private Users users;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="katgoriId")
+    private Kategori kategori;
 
     @Column
     @Enumerated(EnumType.ORDINAL)
