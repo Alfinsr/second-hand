@@ -1,11 +1,14 @@
 package com.kelompok5.secondhand.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -19,4 +22,9 @@ public class Kategori {
 
     @Column(nullable = false, length = 10)
     private String namaKategori;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "kategori")
+    private List<Product> product;
+
 }
