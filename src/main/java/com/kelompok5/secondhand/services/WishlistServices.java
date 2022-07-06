@@ -11,8 +11,10 @@ public interface WishlistServices {
 
     List<Wishlist> getAllWishlist();
     Wishlist postWishlist(Wishlist body);
-    Optional<Wishlist> getWishlistById(Integer id);
-    Wishlist updateWishlist(Wishlist body, Integer id);
+    Wishlist getWishlistById(Integer id);
+
+    Wishlist updateWishlist(Wishlist wishlist);
+
     String deleteWishlist(Integer id);
 
 }

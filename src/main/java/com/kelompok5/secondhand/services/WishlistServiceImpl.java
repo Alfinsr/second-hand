@@ -31,7 +31,7 @@ public class WishlistServiceImpl implements WishlistServices{
 
     @Override
     public Wishlist updateWishlist(Wishlist wishlist) {
-        if(wishlistRepository.findById(wishlist.getWishlist_id()).isPresent()){
+        if(wishlistRepository.findById(wishlist.getWishlistId().intValue()).isPresent()){
             return wishlistRepository.save(wishlist);
         }else {
             return new Wishlist();
@@ -39,13 +39,13 @@ public class WishlistServiceImpl implements WishlistServices{
     }
 
     @Override
-    public Wishlist deleteWishlist(Integer wishlistId) {
+    public String deleteWishlist(Integer wishlistId) {
         Wishlist wishlist = wishlistRepository.findById(wishlistId).orElseThrow();
-        if(wishlistId.getWishlist_id() !=null){
+        if(wishlist.getWishlistId() !=null){
             wishlistRepository.deleteById(wishlistId);
-            return wishlistId;
+            return "sukses";
         }else{
-            return new Wishlist();
+            return "gagal";
         }
     }
 }
