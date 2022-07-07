@@ -45,11 +45,11 @@ public class WishlistController {
     @PutMapping("/wishlist/{id}")
     public ResponseEntity<Wishlist> updateWishlist(@RequestBody WishlistDto wishlistDto, @PathVariable Integer id){
         Wishlist wishlist = modelMapper.map(wishlistDto, wishlist.class);
-        return new ResponseEntity<>(wishlistServices.updateWishlist(wishlist, id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(wishlistServices.updateWishlist(wishlist), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/Wishlist/{id}")
     public ResponseEntity<String> deleteWishlist(@PathVariable Integer id){
-        return new ResponseEntity<>(wishlistServices.deleteWishlist(id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<String>(wishlistServices.deleteWishlist(id), HttpStatus.ACCEPTED);
     }
 }
