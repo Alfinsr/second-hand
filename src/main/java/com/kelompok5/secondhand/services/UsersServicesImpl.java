@@ -3,6 +3,7 @@ package com.kelompok5.secondhand.services;
 
 import com.kelompok5.secondhand.entity.Users;
 import com.kelompok5.secondhand.repository.UsersRepository;
+import com.kelompok5.secondhand.result.ErrorResult;
 import com.kelompok5.secondhand.result.Result;
 import com.kelompok5.secondhand.result.SuccessDataResult;
 import com.kelompok5.secondhand.result.SuccessResult;
@@ -34,10 +35,10 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = usersRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Users user = usersRepository.findByEmail(email);
         if(user != null){
-            log.info("User found in the database : {}", username);
+            log.info("User found in the database : {}", email);
         }else{
             log.error("User not found in the database");
         }
@@ -49,13 +50,17 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
     @Override
     public Result postUsers(Users body) {
         Users usersExists =   usersRepository.findByUsername(body.getUsername());
-        if(usersExists != null){
-            throw  new IllegalArgumentException(String.format("User with username '%s' already exists", body.getUsername()));
-        }
-        String encodePassword = bCryptPasswordEncoder.encode(body.getPassword());
-        body.setPassword(encodePassword);
-        usersRepository.save(body);
-        return new SuccessDataResult(body, "Success Register User");
+       try {
+           if(usersExists != null){
+               throw  new IllegalArgumentException(String.format("User with username '%s' already exists", body.getUsername()));
+           }
+           String encodePassword = bCryptPasswordEncoder.encode(body.getPassword());
+           body.setPassword(encodePassword);
+           usersRepository.save(body);
+           return new SuccessDataResult(body, "Success Register User");
+       }catch (Exception e){
+           return new ErrorResult("User sudah terdaftar");
+       }
 
     }
 
