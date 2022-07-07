@@ -1,14 +1,16 @@
 package com.kelompok5.secondhand.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
+
 
 
 @Getter
@@ -16,7 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "users")
-public class Users {
+public class Users implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +47,13 @@ public class Users {
 
     @Column
     private String kota;
+
+
+    @JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY,
+    cascade = CascadeType.ALL,
+    mappedBy = "users")
+    private Wishlist wishlist;
 
     @ManyToMany(fetch = FetchType.EAGER )
     private Collection<Role> roles = new ArrayList<>();

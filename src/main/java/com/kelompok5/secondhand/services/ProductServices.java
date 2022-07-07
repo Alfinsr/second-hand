@@ -16,12 +16,13 @@ import java.util.Optional;
 
 @Component
 public interface ProductServices {
-    DataResult<List<Product>> getAllProduct(String kategori, String q);
+    DataResult<List<Product>> getAllProduct(int pageNo, int pageSize,String kategori, String q);
+
+
     Result postProduct(ProductDto body);
     Optional<Product>getProductById(Integer id);
     Result updateProduct(ProductDto body, Integer id);
     List<Product> searchProduct(String query);
     Result deleteProduct(Integer id);
-
     DataResult<List<Product>>  getProductByUser(String username);
 }

@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,13 +29,14 @@ public class WishlistController {
 
     @PostMapping("/wishlist")
     public ResponseEntity<Wishlist> postWishlist(@RequestBody WishlistDto wishlistDto){
-        Wishlist wishlist = modelMapper.map(wishlistDto, Wishlist.class);
-        return new ResponseEntity<>(wishlistServices.postWishlist(wishlist), HttpStatus.CREATED);
+
+        return new ResponseEntity<>(wishlistServices.postWishlist(wishlistDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/wishlist")
-    public ResponseEntity<List<Wishlist>> getAllWishlist(){
-        return new ResponseEntity<>(wishlistServices.getAllWishlist(), HttpStatus.OK);
+    public ResponseEntity<List<Wishlist>> getAllWishlist(Authentication authentication){
+
+        return new ResponseEntity<>(wishlistServices.getAllWishlist(authentication.getName()), HttpStatus.OK);
     }
 
     @GetMapping("/wishlist/{id}")

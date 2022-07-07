@@ -16,15 +16,15 @@ import com.kelompok5.secondhand.result.SuccessResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Map;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 @RequiredArgsConstructor
@@ -47,9 +47,10 @@ public class ProductServicesImpl implements ProductServices {
     private final CloudinaryStorageService cloudinaryStorageService;
 
     @Override
-    public DataResult<List<Product>> getAllProduct(String kategori, String q) {
+    public DataResult<List<Product>> getAllProduct(int pageNo, int pageSize,String kategori, String q) {
+        Pageable paging = PageRequest.of(pageNo, pageSize);
 
-        return new SuccessDataResult<>(productRepository.searchProducts( kategori,q), "success get all products");
+        return new SuccessDataResult<>(productRepository.searchProducts( kategori,q, paging), "success get all products");
     }
 
     @Override
@@ -116,6 +117,7 @@ public class ProductServicesImpl implements ProductServices {
     public List<Product> searchProduct(String query) {
         return productRepository.searchProduct(query);
     }
+
 
 
 }

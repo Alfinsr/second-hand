@@ -28,7 +28,7 @@ public class Product {
     private String deskripsiProduct;
 
 
-    @JsonBackReference
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private Users users;
@@ -36,6 +36,13 @@ public class Product {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="katgoriId")
     private Kategori kategori;
+
+
+    @JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "product")
+    private Wishlist wishlist;
 
     @Column
     @Enumerated(EnumType.ORDINAL)

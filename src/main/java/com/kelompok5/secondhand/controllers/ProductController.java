@@ -44,9 +44,11 @@ public class ProductController {
     }
 
     @GetMapping("/Product")
-    public ResponseEntity<DataResult<List<Product>>> getAllProduct(@RequestParam(value = "q",required = false)String q,@RequestParam(value = "kategori",required = false) String kategori) {
+    public ResponseEntity<DataResult<List<Product>>> getAllProduct(@RequestParam(value = "q",required = false)String q,@RequestParam(value = "kategori",required = false) String kategori
+    ,@RequestParam(value = "pageNo",required = false) int pageNo
+    ,@RequestParam(value = "pageSize",required = false) int pageSize) {
 
-        return new ResponseEntity<>(productServices.getAllProduct(kategori,q), HttpStatus.OK);
+        return new ResponseEntity<>(productServices.getAllProduct(pageNo,pageSize,kategori,q), HttpStatus.OK);
 
     }
 
