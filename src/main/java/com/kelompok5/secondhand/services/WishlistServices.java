@@ -11,7 +11,7 @@ public interface WishlistServices {
 
     List<Wishlist> getAllWishlist();
     Wishlist postWishlist(Wishlist body);
-    Wishlist getWishlistById(Integer id);
+    Optional<Wishlist> getWishlistById(Integer id);
 
     Wishlist updateWishlist(Wishlist wishlist);
 

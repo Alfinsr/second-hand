@@ -28,13 +28,13 @@ public class WishlistController {
 
     @PostMapping("/wishlist")
     public ResponseEntity<Wishlist> postWishlist(@RequestBody WishlistDto wishlistDto){
-        Wishlist = modelMapper.map(wishlistDto, Wishlist.class);
-        return new ResponseEntity<>(WishlistServices.postWishlist(Wishlist), HttpStatus.CREATED);
+        Wishlist wishlist = modelMapper.map(wishlistDto, Wishlist.class);
+        return new ResponseEntity<>(wishlistServices.postWishlist(wishlist), HttpStatus.CREATED);
     }
 
     @GetMapping("/wishlist")
     public ResponseEntity<List<Wishlist>> getAllWishlist(){
-        return new ResponseEntity<>(WishlistServices.getAllWishlist(), HttpStatus.OK);
+        return new ResponseEntity<>(wishlistServices.getAllWishlist(), HttpStatus.OK);
     }
 
     @GetMapping("/wishlist/{id}")
@@ -44,7 +44,7 @@ public class WishlistController {
 
     @PutMapping("/wishlist/{id}")
     public ResponseEntity<Wishlist> updateWishlist(@RequestBody WishlistDto wishlistDto, @PathVariable Integer id){
-        Wishlist wishlist = modelMapper.map(wishlistDto, wishlist.class);
+        Wishlist wishlist = modelMapper.map(wishlistDto, Wishlist.class);
         return new ResponseEntity<>(wishlistServices.updateWishlist(wishlist), HttpStatus.ACCEPTED);
     }
 

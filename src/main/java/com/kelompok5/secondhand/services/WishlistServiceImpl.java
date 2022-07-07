@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WishlistServiceImpl implements WishlistServices{
@@ -25,8 +26,8 @@ public class WishlistServiceImpl implements WishlistServices{
     }
 
     @Override
-    public Wishlist getWishlistById(Integer wishlist_id) {
-        return wishlistRepository.findById(wishlist_id).orElseThrow();
+    public Optional<Wishlist> getWishlistById(Integer wishlist_id) {
+        return wishlistRepository.findById(wishlist_id);
     }
 
     @Override
