@@ -12,8 +12,8 @@ import java.util.Optional;
 public interface UsersServices {
 
     Result  postUsers(Users body);
-    Result getAllUsers();
-    Result getUserById(Integer id);
+
+    Result getUserById(String username);
     Result updateUsers(Users body, String username);
     Result deleteUser(Integer id);
 }

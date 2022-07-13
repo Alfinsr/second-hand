@@ -13,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController @RequiredArgsConstructor
 public class UsersController {
@@ -34,19 +32,16 @@ public class UsersController {
         return new ResponseEntity<>(usersServices.postUsers(users), HttpStatus.CREATED);
     }
 
-    @GetMapping("/Users")
-    public ResponseEntity<Result> getAllUsers() {
-        return new ResponseEntity<>(usersServices.getAllUsers(), HttpStatus.OK);
-    }
+
 
     @GetMapping("/current")
     public String currentUser(Authentication authentication){
         return authentication.getName();
     }
 
-    @GetMapping("/Users/{id}")
-    public ResponseEntity<Result> getUsersById(@PathVariable Integer id) {
-        return new ResponseEntity<>(usersServices.getUserById(id), HttpStatus.OK);
+    @GetMapping("/Users")
+    public ResponseEntity<Result> getUsersById(Authentication authentication) {
+        return new ResponseEntity<>(usersServices.getUserById(authentication.getName()), HttpStatus.OK);
     }
 
     @PutMapping("/Users")

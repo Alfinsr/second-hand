@@ -64,15 +64,11 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
 
     }
 
-    @Override
-    public Result getAllUsers() {
-        List<Users> users = usersRepository.findAll();
-        return new SuccessDataResult(users, "Success get all users");
-    }
+
 
     @Override
-    public Result getUserById(Integer id) {
-     Optional<Users> users=    usersRepository.findById(id);
+    public Result getUserById(String username) {
+     Users users = usersRepository.findByUsername(username);
      return  new SuccessDataResult(users,"Success Get User By Id");
     }
 
