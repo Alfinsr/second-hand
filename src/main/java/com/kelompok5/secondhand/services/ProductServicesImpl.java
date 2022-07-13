@@ -59,8 +59,8 @@ public class ProductServicesImpl implements ProductServices {
     }
 
     @Override
-    public Result postProduct(ProductDto body) {
-        Optional<Users> optionalUsers = usersRepository.findById(body.getIdUser());
+    public Result postProduct(ProductDto body,String username) {
+        Users optionalUsers = usersRepository.findByUsername(username);
         Optional<Kategori> optionalKategori = kategoriRepository.findById(body.getIdKategori());
 
        Product product = new Product();
@@ -69,7 +69,7 @@ public class ProductServicesImpl implements ProductServices {
        product.setStatusProduct(body.getStatusProduct());
        product.setDeskripsiProduct(body.getDeskripsiProduct());
        product.setKategori(optionalKategori.get());
-       product.setUsers(optionalUsers.get());
+       product.setUsers(optionalUsers);
        productRepository.save(product);
 
 

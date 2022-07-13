@@ -19,7 +19,7 @@ public interface ProductServices {
     DataResult<List<Product>> getAllProduct(int pageNo, int pageSize,String kategori, String q);
 
 
-    Result postProduct(ProductDto body);
+    Result postProduct(ProductDto body, String username);
     Optional<Product>getProductById(Integer id);
     Result updateProduct(ProductDto body, Integer id);
     List<Product> searchProduct(String query);

@@ -38,9 +38,9 @@ public class ProductController {
     @PostMapping(value = "/Product",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Result> postProduct(ProductDto productDto) {
+    public ResponseEntity<Result> postProduct(ProductDto productDto,Authentication authentication) {
 
-        return new ResponseEntity<>(productServices.postProduct(productDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(productServices.postProduct(productDto,authentication.getName()), HttpStatus.CREATED);
     }
 
     @GetMapping("/Product")
