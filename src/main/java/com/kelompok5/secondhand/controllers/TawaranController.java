@@ -52,7 +52,7 @@ public class TawaranController {
         return new ResponseEntity<>("Behasil Menawar !", HttpStatus.OK);
 
     }
-    @Operation(summary = "Show Tawaran by user")
+    @Operation(summary = "Show Tawaran by Seller")
     @GetMapping("show-tawaran/{idTawaran}")
     public ResponseEntity<ResponsTawaran> showTawaran(@PathVariable Integer idTawaran) {
         return new ResponseEntity<>(tawaranService.findTawaranByIdTawaran(idTawaran), HttpStatus.OK);
