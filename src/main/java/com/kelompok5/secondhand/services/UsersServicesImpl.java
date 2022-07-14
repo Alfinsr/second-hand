@@ -91,4 +91,9 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
          usersRepository.deleteById(id);
          return new SuccessResult("Sucess Delete User");
     }
+
+    @Override
+    public Users findByUsername(String username) {
+        return usersRepository.findByUsername(username);
+    }
 }

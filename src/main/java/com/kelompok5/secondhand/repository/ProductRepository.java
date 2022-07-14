@@ -19,4 +19,5 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
     List<Product> searchProducts(String kategoris, String search, Pageable pageable);
 
     List<Product> findByusers(Users users);
+    Product findProductByIdProduct(Integer idProdcut);
 }

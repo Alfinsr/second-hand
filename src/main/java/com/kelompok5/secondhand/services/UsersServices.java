@@ -16,4 +16,6 @@ public interface UsersServices {
     Result getUserById(String username);
     Result updateUsers(Users body, String username);
     Result deleteUser(Integer id);
+    Users findByUsername(String username);
+
 }

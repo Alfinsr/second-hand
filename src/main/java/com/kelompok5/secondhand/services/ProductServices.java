@@ -25,4 +25,6 @@ public interface ProductServices {
     List<Product> searchProduct(String query);
     Result deleteProduct(Integer id);
     DataResult<List<Product>>  getProductByUser(String username);
+    Product findProductById(Integer idProduct);
+
 }
