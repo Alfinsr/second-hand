@@ -3,6 +3,7 @@ package com.kelompok5.secondhand.controllers;
 import com.kelompok5.secondhand.entity.Product;
 import com.kelompok5.secondhand.entity.Tawaran;
 import com.kelompok5.secondhand.entity.Users;
+import com.kelompok5.secondhand.result.ResponsTawaran;
 import com.kelompok5.secondhand.result.Result;
 import com.kelompok5.secondhand.services.ProductServices;
 import com.kelompok5.secondhand.services.TawaranServices;
@@ -51,6 +52,13 @@ public class TawaranController {
         return new ResponseEntity<>("Behasil Menawar !", HttpStatus.OK);
 
     }
+    @Operation(summary = "Show Tawaran by user")
+    @GetMapping("show-tawaran/{idTawaran}")
+    public ResponseEntity<ResponsTawaran> showTawaran(@PathVariable Integer idTawaran) {
+        return new ResponseEntity<>(tawaranService.findTawaranByIdTawaran(idTawaran), HttpStatus.OK);
+    }
+
+
 
 
 }

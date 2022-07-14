@@ -1,11 +1,10 @@
 package com.kelompok5.secondhand.services;
 
 import com.kelompok5.secondhand.entity.Tawaran;
-import com.kelompok5.secondhand.entity.Product;
-import com.kelompok5.secondhand.entity.Users;
 import com.kelompok5.secondhand.repository.TawaranRepository;
 import com.kelompok5.secondhand.repository.ProductRepository;
 import com.kelompok5.secondhand.repository.UsersRepository;
+import com.kelompok5.secondhand.result.ResponsTawaran;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +27,11 @@ public class TawaranServiceImpl implements TawaranServices{
         tawaran.setHargaTawar(body.getHargaTawar());
         tawaran.setStatusTawaran(body.getStatusTawaran());
         tawaranRepository.save(tawaran);
+    }
+    @Override
+    public ResponsTawaran findTawaranByIdTawaran(Integer idTawaran){
+        Tawaran tawaran = tawaranRepository.findTawaranByIdTawaran(idTawaran);
+        return new ResponsTawaran(tawaran);
     }
 
 
