@@ -114,6 +114,12 @@ public class ProductServicesImpl implements ProductServices {
     }
 
     @Override
+    public Product findProductById(Integer idProduct) {
+        return productRepository.findProductByIdProduct(idProduct);
+
+    }
+
+    @Override
     public List<Product> searchProduct(String query) {
         return productRepository.searchProduct(query);
     }

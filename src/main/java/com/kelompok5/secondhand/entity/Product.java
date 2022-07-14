@@ -27,8 +27,6 @@ public class Product {
     @Column
     private String deskripsiProduct;
 
-
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private Users users;

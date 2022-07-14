@@ -48,12 +48,11 @@ public class Users implements Serializable {
     @Column
     private String kota;
 
-
-    @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY,
-    cascade = CascadeType.ALL,
-    mappedBy = "users")
-    private Wishlist wishlist;
+//    @JsonBackReference
+//    @OneToOne(fetch = FetchType.LAZY,
+//    cascade = CascadeType.ALL,
+//    mappedBy = "users")
+//    private Wishlist wishlist;
 
     @ManyToMany(fetch = FetchType.EAGER )
     private Collection<Role> roles = new ArrayList<>();

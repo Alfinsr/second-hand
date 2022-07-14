@@ -6,6 +6,7 @@ import com.kelompok5.secondhand.result.DataResult;
 import com.kelompok5.secondhand.result.Result;
 import com.kelompok5.secondhand.services.CloudinaryStorageService;
 import com.kelompok5.secondhand.services.ProductServices;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -38,17 +39,17 @@ public class ProductController {
     @PostMapping(value = "/Product",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Result> postProduct(ProductDto productDto,Authentication authentication) {
+    public ResponseEntity<Result> postProduct(ProductDto productDto, Authentication authentication) {
 
-        return new ResponseEntity<>(productServices.postProduct(productDto,authentication.getName()), HttpStatus.CREATED);
+        return new ResponseEntity<>(productServices.postProduct(productDto, authentication.getName()), HttpStatus.CREATED);
     }
 
     @GetMapping("/Product")
-    public ResponseEntity<DataResult<List<Product>>> getAllProduct(@RequestParam(value = "q",required = false)String q,@RequestParam(value = "kategori",required = false) String kategori
-    ,@RequestParam(value = "pageNo",required = false) int pageNo
-    ,@RequestParam(value = "pageSize",required = false) int pageSize) {
+    public ResponseEntity<DataResult<List<Product>>> getAllProduct(@RequestParam(value = "q", required = false) String q, @RequestParam(value = "kategori", required = false) String kategori
+            , @RequestParam(value = "pageNo", required = false) int pageNo
+            , @RequestParam(value = "pageSize", required = false) int pageSize) {
 
-        return new ResponseEntity<>(productServices.getAllProduct(pageNo,pageSize,kategori,q), HttpStatus.OK);
+        return new ResponseEntity<>(productServices.getAllProduct(pageNo, pageSize, kategori, q), HttpStatus.OK);
 
     }
 
@@ -58,7 +59,7 @@ public class ProductController {
     }
 
     @GetMapping("/product-user")
-    public ResponseEntity<DataResult<List<Product>>> getProductByUser(Authentication authentication){
+    public ResponseEntity<DataResult<List<Product>>> getProductByUser(Authentication authentication) {
         return new ResponseEntity<>(productServices.getProductByUser(authentication.getName()), HttpStatus.OK);
 
     }
@@ -74,8 +75,15 @@ public class ProductController {
 
 
     @DeleteMapping("/product/{id}")
-    public ResponseEntity<Result> deleteProduct(@PathVariable Integer id){
+    public ResponseEntity<Result> deleteProduct(@PathVariable Integer id) {
         return new ResponseEntity<>(productServices.deleteProduct(id), HttpStatus.ACCEPTED);
+    }
+
+    @Operation(summary = "Find product by idProduct")
+    @GetMapping("{idProduct}")
+    public ResponseEntity<Product> findProductById(@PathVariable("idProduct") Integer idProduct) {
+        return new ResponseEntity<>(productServices.findProductById(idProduct), HttpStatus.OK);
+
     }
 }
 
