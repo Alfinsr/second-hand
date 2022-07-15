@@ -18,8 +18,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@SecurityRequirement(name = "Authorization")
-@RequestMapping("/api/tawaran/")
 @RequiredArgsConstructor
 
 public class TawaranController {
@@ -32,8 +30,7 @@ public class TawaranController {
     @Autowired
     private final ProductServices productServices;
 
-    @Operation(summary = "Tambahkan Tawaran")
-    @PostMapping("add/{idProduct}")
+    @PostMapping("tawaran/{idProduct}")
     public ResponseEntity<?> saveTawaran(
             @RequestBody TawaranDto tawaranDto,
             @PathVariable(name = "idProduct") Integer idProduct, Authentication valid){
@@ -49,8 +46,8 @@ public class TawaranController {
         return new ResponseEntity<>("Behasil Menawar !", HttpStatus.OK);
 
     }
-    @Operation(summary = "Show Tawaran by Seller")
-    @GetMapping("show-tawaran/{idTawaran}")
+
+    @GetMapping("tawaran/{idTawaran}")
     public ResponseEntity<SuccessDataResult> showTawaran(@PathVariable Integer idTawaran) {
         return new ResponseEntity<>(tawaranService.findTawaranByIdTawaran(idTawaran), HttpStatus.OK);
     }
