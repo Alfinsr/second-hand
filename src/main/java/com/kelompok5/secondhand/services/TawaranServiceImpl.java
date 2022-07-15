@@ -4,8 +4,6 @@ import com.kelompok5.secondhand.entity.Tawaran;
 import com.kelompok5.secondhand.repository.TawaranRepository;
 import com.kelompok5.secondhand.repository.ProductRepository;
 import com.kelompok5.secondhand.repository.UsersRepository;
-import com.kelompok5.secondhand.result.DataResult;
-import com.kelompok5.secondhand.result.ResponsTawaran;
 import com.kelompok5.secondhand.result.SuccessDataResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
