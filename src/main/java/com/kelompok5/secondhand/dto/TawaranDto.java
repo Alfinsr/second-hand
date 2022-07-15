@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TawaranDto {
-    private String hargaTawaran;
+    private Integer hargaTawaran;
     private Integer idUser;
     private Integer idProduct;
     private StatutsTawaranEnum statutsTawaran;

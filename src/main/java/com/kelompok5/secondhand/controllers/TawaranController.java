@@ -1,5 +1,6 @@
 package com.kelompok5.secondhand.controllers;
 
+import com.kelompok5.secondhand.dto.TawaranDto;
 import com.kelompok5.secondhand.entity.Product;
 import com.kelompok5.secondhand.entity.Tawaran;
 import com.kelompok5.secondhand.entity.Users;
@@ -37,18 +38,16 @@ public class TawaranController {
     @Operation(summary = "Tambahkan Tawaran")
     @PostMapping("add/{idProduct}")
     public ResponseEntity<?> saveTawaran(
-            @Schema(example = "{\n" + "  \"harga\": \"250000\"\n" + "}")
-            @RequestBody Map<String, Object> hargaTawaran,
+            @RequestBody TawaranDto tawaranDto,
             @PathVariable(name = "idProduct") Integer idProduct, Authentication valid){
         Product product = productServices.findProductById(idProduct);
         String username = valid.getName();
-        System.out.println(hargaTawaran);
         Users users = usersServices.findByUsername(username);
         Tawaran tawaran = new Tawaran();
         tawaran.setUsers(users);
         tawaran.setProduct(product);
-        tawaran.setHargaTawar(hargaTawaran.get("harga").toString());
-        tawaran.setStatusTawaran(tawaran.getStatusTawaran());
+        tawaran.setHargaTawar(tawaranDto.getHargaTawaran());
+        tawaran.setStatusTawaran(tawaranDto.getStatutsTawaran());
         tawaranService.saveTawaran(tawaran);
         return new ResponseEntity<>("Behasil Menawar !", HttpStatus.OK);
 

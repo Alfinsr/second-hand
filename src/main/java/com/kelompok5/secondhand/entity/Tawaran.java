@@ -22,7 +22,7 @@ public class Tawaran {
     private Product product;
 
     @Column
-    private String hargaTawar;
+    private Integer hargaTawar;
 
     @Column
     @Enumerated(EnumType.ORDINAL)
