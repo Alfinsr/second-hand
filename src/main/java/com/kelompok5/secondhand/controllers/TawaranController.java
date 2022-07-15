@@ -33,7 +33,7 @@ public class TawaranController {
     @PostMapping("/tawaran/{idProduct}")
     public ResponseEntity<?> saveTawaran(
             @RequestBody TawaranDto tawaranDto,
-            @PathVariable(name = "idProduct") Integer idProduct, Authentication valid){
+            @PathVariable Integer idProduct, Authentication valid){
         Product product = productServices.findProductById(idProduct);
         String username = valid.getName();
         Users users = usersServices.findByUsername(username);
