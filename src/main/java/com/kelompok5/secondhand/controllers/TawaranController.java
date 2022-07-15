@@ -30,7 +30,7 @@ public class TawaranController {
     @Autowired
     private final ProductServices productServices;
 
-    @PostMapping("tawaran/{idProduct}")
+    @PostMapping("/tawaran/{idProduct}")
     public ResponseEntity<?> saveTawaran(
             @RequestBody TawaranDto tawaranDto,
             @PathVariable(name = "idProduct") Integer idProduct, Authentication valid){
@@ -47,7 +47,7 @@ public class TawaranController {
 
     }
 
-    @GetMapping("tawaran/{idTawaran}")
+    @GetMapping("/tawaran/{idTawaran}")
     public ResponseEntity<SuccessDataResult> showTawaran(@PathVariable Integer idTawaran) {
         return new ResponseEntity<>(tawaranService.findTawaranByIdTawaran(idTawaran), HttpStatus.OK);
     }

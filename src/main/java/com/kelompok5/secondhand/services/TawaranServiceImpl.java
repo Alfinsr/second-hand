@@ -5,18 +5,20 @@ import com.kelompok5.secondhand.repository.TawaranRepository;
 import com.kelompok5.secondhand.repository.ProductRepository;
 import com.kelompok5.secondhand.repository.UsersRepository;
 import com.kelompok5.secondhand.result.SuccessDataResult;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class TawaranServiceImpl implements TawaranServices{
 
     @Autowired
-    private TawaranRepository tawaranRepository;
+    private final TawaranRepository tawaranRepository;
     @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
     @Autowired
-    private UsersRepository usersRepository;
+    private final UsersRepository usersRepository;
 
 
     @Override

@@ -1,11 +1,15 @@
 package com.kelompok5.secondhand.entity;
 
 import com.kelompok5.secondhand.utils.StatutsTawaranEnum;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "tawaran")
 public class Tawaran {
 
