@@ -10,6 +10,7 @@ import com.kelompok5.secondhand.services.TawaranServices;
 import com.kelompok5.secondhand.services.UsersServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +20,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @SecurityRequirement(name = "Authorization")
 @RequestMapping("/api/tawaran/")
+@RequiredArgsConstructor
 
 public class TawaranController {
     @Autowired
-    private TawaranServices tawaranService;
+    private final TawaranServices tawaranService;
 
     @Autowired
-    private UsersServices usersServices;
+    private final UsersServices usersServices;
 
     @Autowired
-    private ProductServices productServices;
+    private final ProductServices productServices;
 
     @Operation(summary = "Tambahkan Tawaran")
     @PostMapping("add/{idProduct}")
