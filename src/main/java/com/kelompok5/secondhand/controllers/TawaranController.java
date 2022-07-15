@@ -5,6 +5,7 @@ import com.kelompok5.secondhand.entity.Tawaran;
 import com.kelompok5.secondhand.entity.Users;
 import com.kelompok5.secondhand.result.ResponsTawaran;
 import com.kelompok5.secondhand.result.Result;
+import com.kelompok5.secondhand.result.SuccessDataResult;
 import com.kelompok5.secondhand.services.ProductServices;
 import com.kelompok5.secondhand.services.TawaranServices;
 import com.kelompok5.secondhand.services.UsersServices;
@@ -54,7 +55,7 @@ public class TawaranController {
     }
     @Operation(summary = "Show Tawaran by Seller")
     @GetMapping("show-tawaran/{idTawaran}")
-    public ResponseEntity<ResponsTawaran> showTawaran(@PathVariable Integer idTawaran) {
+    public ResponseEntity<SuccessDataResult> showTawaran(@PathVariable Integer idTawaran) {
         return new ResponseEntity<>(tawaranService.findTawaranByIdTawaran(idTawaran), HttpStatus.OK);
     }
 
