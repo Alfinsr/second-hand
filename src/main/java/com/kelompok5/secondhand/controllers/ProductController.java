@@ -6,7 +6,7 @@ import com.kelompok5.secondhand.result.DataResult;
 import com.kelompok5.secondhand.result.Result;
 import com.kelompok5.secondhand.services.CloudinaryStorageService;
 import com.kelompok5.secondhand.services.ProductServices;
-import io.swagger.v3.oas.annotations.Operation;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -74,16 +74,11 @@ public class ProductController {
     }
 
 
-    @DeleteMapping("/product/{id}")
+    @DeleteMapping("/Product/{id}")
     public ResponseEntity<Result> deleteProduct(@PathVariable Integer id) {
         return new ResponseEntity<>(productServices.deleteProduct(id), HttpStatus.ACCEPTED);
     }
 
-    @Operation(summary = "Find product by idProduct")
-    @GetMapping("{idProduct}")
-    public ResponseEntity<Product> findProductById(@PathVariable("idProduct") Integer idProduct) {
-        return new ResponseEntity<>(productServices.findProductById(idProduct), HttpStatus.OK);
 
-    }
 }
 

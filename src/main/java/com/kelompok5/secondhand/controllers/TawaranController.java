@@ -39,7 +39,4 @@ public class TawaranController {
         return new ResponseEntity<>(tawaranService.findTawaranByIdTawaran(idTawaran), HttpStatus.OK);
     }
 
-
-
-
 }

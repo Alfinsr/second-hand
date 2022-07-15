@@ -35,8 +35,6 @@ public class TawaranServiceImpl implements TawaranServices{
         tawaran.setProduct(product);
         tawaran.setHargaTawar(tawaranDto.getHargaTawaran());
         tawaran.setStatusTawaran(tawaranDto.getStatutsTawaran());
-
-
         tawaranRepository.save(tawaran);
 
         return new SuccessResult("Success post Tawaran");
