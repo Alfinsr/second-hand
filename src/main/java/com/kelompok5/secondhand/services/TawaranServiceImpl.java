@@ -1,6 +1,9 @@
 package com.kelompok5.secondhand.services;
 
+import com.kelompok5.secondhand.dto.TawaranDto;
+import com.kelompok5.secondhand.entity.Product;
 import com.kelompok5.secondhand.entity.Tawaran;
+import com.kelompok5.secondhand.entity.Users;
 import com.kelompok5.secondhand.repository.TawaranRepository;
 import com.kelompok5.secondhand.repository.ProductRepository;
 import com.kelompok5.secondhand.repository.UsersRepository;
@@ -24,12 +27,16 @@ public class TawaranServiceImpl implements TawaranServices{
 
 
     @Override
-    public Result saveTawaran(Tawaran body) {
+    public Result saveTawaran(TawaranDto tawaranDto, String username, Integer productId) {
+        Product product = productRepository.findProductByIdProduct(productId);
+        Users users = usersRepository.findByUsername(username);
         Tawaran tawaran = new Tawaran();
-        tawaran.setUsers(body.getUsers());
-        tawaran.setProduct(body.getProduct());
-        tawaran.setHargaTawar(body.getHargaTawar());
-        tawaran.setStatusTawaran(body.getStatusTawaran());
+        tawaran.setUsers(users);
+        tawaran.setProduct(product);
+        tawaran.setHargaTawar(tawaranDto.getHargaTawaran());
+        tawaran.setStatusTawaran(tawaranDto.getStatutsTawaran());
+
+
         tawaranRepository.save(tawaran);
 
         return new SuccessResult("Success post Tawaran");

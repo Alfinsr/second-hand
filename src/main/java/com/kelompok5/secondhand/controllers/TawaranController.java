@@ -25,26 +25,12 @@ public class TawaranController {
     @Autowired
     private final TawaranServices tawaranService;
 
-    @Autowired
-    private final UsersServices usersServices;
-
-    @Autowired
-    private final ProductServices productServices;
-
     @PostMapping("/tawaran/{idProduct}")
     public ResponseEntity<Result> saveTawaran(
             @RequestBody TawaranDto tawaranDto,
             @PathVariable Integer idProduct, Authentication valid){
-        Product product = productServices.findProductById(idProduct);
         String username = valid.getName();
-        Users users = usersServices.findByUsername(username);
-        Tawaran tawaran = new Tawaran();
-        tawaran.setUsers(users);
-        tawaran.setProduct(product);
-        tawaran.setHargaTawar(tawaranDto.getHargaTawaran());
-        tawaran.setStatusTawaran(tawaranDto.getStatutsTawaran());
-
-        return new ResponseEntity<>(  tawaranService.saveTawaran(tawaran), HttpStatus.CREATED);
+        return new ResponseEntity<>(  tawaranService.saveTawaran(tawaranDto, username,idProduct), HttpStatus.CREATED);
 
     }
 
