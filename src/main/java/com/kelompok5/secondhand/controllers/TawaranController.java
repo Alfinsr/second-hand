@@ -26,7 +26,7 @@ public class TawaranController {
     private final TawaranServices tawaranService;
 
     @PostMapping("/tawaran/{idProduct}")
-    public ResponseEntity<Result> saveTawaran(
+    public ResponseEntity<Result> postTawaran(
             @RequestBody TawaranDto tawaranDto,
             @PathVariable Integer idProduct, Authentication valid){
         String username = valid.getName();
@@ -35,8 +35,20 @@ public class TawaranController {
     }
 
     @GetMapping("/tawaran/{idTawaran}")
-    public ResponseEntity<SuccessDataResult> showTawaran(@PathVariable Integer idTawaran) {
-        return new ResponseEntity<>(tawaranService.findTawaranByIdTawaran(idTawaran), HttpStatus.OK);
+    public ResponseEntity<Result> getDetailTawaran(@PathVariable Integer idTawaran) {
+        return new ResponseEntity<>(tawaranService.getTawaranById(idTawaran), HttpStatus.OK);
     }
+
+    @GetMapping("/tawaran-seller")
+    public ResponseEntity<Result> getTawaranSeller(Authentication authentication){
+        return new ResponseEntity<>(tawaranService.getTawaranSeller(authentication.getName()), HttpStatus.OK);
+    }
+
+    @GetMapping("/tawaran-buyer")
+    public ResponseEntity<Result> getTawaranBuyer(Authentication authentication){
+        return new ResponseEntity<>(tawaranService.getTawaranBuyer(authentication.getName()), HttpStatus.OK);
+    }
+
+
 
 }

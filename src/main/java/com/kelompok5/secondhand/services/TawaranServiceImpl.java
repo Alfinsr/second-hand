@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TawaranServiceImpl implements TawaranServices{
@@ -40,10 +42,22 @@ public class TawaranServiceImpl implements TawaranServices{
         return new SuccessResult("Success post Tawaran");
     }
     @Override
-    public SuccessDataResult findTawaranByIdTawaran(Integer idTawaran){
-        Tawaran tawaran = tawaranRepository.findTawaranByIdTawaran(idTawaran);
-        return new SuccessDataResult(tawaran, "Success get data tawaran by id");
+    public Result getTawaranById(Integer idTawaran){
+    Tawaran tawaran = tawaranRepository.getById(idTawaran);
+        return new SuccessDataResult<>(tawaran, "Success get data tawaran by seller");
     }
 
+    @Override
+    public Result getTawaranSeller(String username) {
+        Users users = usersRepository.findByUsername(username);
+        List<Tawaran> tawarans = tawaranRepository.findByProductUsers(users);
+        return new SuccessDataResult<>(tawarans, "Success get tawaran by seller");
+    }
 
+    @Override
+    public Result getTawaranBuyer(String username) {
+        Users users = usersRepository.findByUsername(username);
+        List<Tawaran> tawarans = tawaranRepository.findByUsers(users);
+        return  new SuccessDataResult<>(tawarans, "Success get tawaran by buyer");
+    }
 }
