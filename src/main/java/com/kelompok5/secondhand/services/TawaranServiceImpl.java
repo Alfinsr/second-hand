@@ -4,7 +4,9 @@ import com.kelompok5.secondhand.entity.Tawaran;
 import com.kelompok5.secondhand.repository.TawaranRepository;
 import com.kelompok5.secondhand.repository.ProductRepository;
 import com.kelompok5.secondhand.repository.UsersRepository;
+import com.kelompok5.secondhand.result.DataResult;
 import com.kelompok5.secondhand.result.ResponsTawaran;
+import com.kelompok5.secondhand.result.SuccessDataResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +31,9 @@ public class TawaranServiceImpl implements TawaranServices{
         tawaranRepository.save(tawaran);
     }
     @Override
-    public ResponsTawaran findTawaranByIdTawaran(Integer idTawaran){
+    public SuccessDataResult findTawaranByIdTawaran(Integer idTawaran){
         Tawaran tawaran = tawaranRepository.findTawaranByIdTawaran(idTawaran);
-        return new ResponsTawaran(tawaran);
+        return new SuccessDataResult(tawaran, "Success get data tawaran by id");
     }
 
 
