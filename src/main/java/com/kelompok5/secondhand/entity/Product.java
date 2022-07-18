@@ -40,6 +40,12 @@ public class Product {
     @OneToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "product")
+    private Transaksi transaksi;
+
+    @JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "product")
     private Wishlist wishlist;
 
     @Column

@@ -21,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Map;
@@ -87,14 +88,25 @@ public class ProductServicesImpl implements ProductServices {
     @Override
     public Result updateProduct(ProductDto body, Integer id) {
         Optional<Kategori> kategori = kategoriRepository.findById(body.getIdKategori());
-
         Product product = productRepository.findById(id).orElseThrow();
-        product.setNamaProduct(body.getNamaProduct());
-        product.setHargaProduct(body.getHargaProduct());
-        product.setDeskripsiProduct(body.getDeskripsiProduct());
-        product.setKategori(kategori.get());
-        product.setStatusProduct(body.getStatusProduct());
-        productRepository.save(product);
+
+        if(body.getImageProduct()== null){
+            System.out.println("Tidak ada image");
+            product.setNamaProduct(body.getNamaProduct());
+            product.setHargaProduct(body.getHargaProduct());
+            product.setDeskripsiProduct(body.getDeskripsiProduct());
+            product.setKategori(kategori.get());
+            product.setStatusProduct(body.getStatusProduct());
+            productRepository.save(product);
+
+
+        }else{
+          for(ImageProduct str : product.getImageProduct()){
+              System.out.println(str.getImageId());
+          }
+        }
+
+
 
         return new SuccessDataResult<>(body, "Success Update products");
 
