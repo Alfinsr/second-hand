@@ -13,5 +13,5 @@ public class TransaksiDto {
 
     private Integer productId;
     private Integer hargaDeal;
-    private Integer userId;
+
 }

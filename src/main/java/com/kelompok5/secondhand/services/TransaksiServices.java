@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface TransaksiServices {
-    Result postTransaksi(Transaksi body);
+    Result postTransaksi(Transaksi body, String username);
     Result getTransaksiSeller(String username);
     Result getTransaksiBuyer(String username);
 }

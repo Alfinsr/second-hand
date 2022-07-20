@@ -28,10 +28,10 @@ public class TransaksiController {
     ModelMapper modelMapper;
 
     @PostMapping("/transaksi")
-    public ResponseEntity<Result> postTransaksi(@RequestBody TransaksiDto transaksiDto){
+    public ResponseEntity<Result> postTransaksi(@RequestBody TransaksiDto transaksiDto, Authentication authentication){
         Transaksi transaksi =modelMapper.map(transaksiDto, Transaksi.class);
 
-        return new ResponseEntity<>(transaksiServices.postTransaksi(transaksi), HttpStatus.CREATED);
+        return new ResponseEntity<>(transaksiServices.postTransaksi(transaksi,authentication.getName()), HttpStatus.CREATED);
 
     }
 
