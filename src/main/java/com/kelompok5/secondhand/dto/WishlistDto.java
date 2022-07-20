@@ -12,5 +12,4 @@ import lombok.Setter;
 
 public class WishlistDto {
     private Integer idProduct;
-    private Integer idUser;
 }

@@ -28,9 +28,9 @@ public class WishlistController {
     ModelMapper modelMapper;
 
     @PostMapping("/wishlist")
-    public ResponseEntity<Wishlist> postWishlist(@RequestBody WishlistDto wishlistDto){
+    public ResponseEntity<Wishlist> postWishlist(@RequestBody WishlistDto wishlistDto ,Authentication authentication){
 
-        return new ResponseEntity<>(wishlistServices.postWishlist(wishlistDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(wishlistServices.postWishlist(wishlistDto, authentication.getName()), HttpStatus.CREATED);
     }
 
     @GetMapping("/wishlist")

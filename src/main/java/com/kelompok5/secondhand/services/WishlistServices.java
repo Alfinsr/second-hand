@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface WishlistServices {
 
     List<Wishlist> getAllWishlist(String username);
-    Wishlist postWishlist(WishlistDto body);
+    Wishlist postWishlist(WishlistDto body, String username);
     Optional<Wishlist> getWishlistById(Integer id);
 
     Wishlist updateWishlist(Wishlist wishlist);
