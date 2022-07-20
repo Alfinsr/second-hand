@@ -29,7 +29,7 @@ public class Tawaran {
     private Integer hargaTawar;
 
     @Column
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private StatutsTawaranEnum statusTawaran = StatutsTawaranEnum.WAITING;
 
 }
