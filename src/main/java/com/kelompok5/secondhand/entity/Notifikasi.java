@@ -1,6 +1,5 @@
 package com.kelompok5.secondhand.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,36 +8,37 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "transaksi")
-public class Transaksi  implements Serializable {
+@Entity(name = "notifikasi")
+public class Notifikasi {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idTransaksi;
+    private Integer idNotifikasi;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "productId")
-    private Product product;
+    @Column
+    private String title;
 
+    @Column
+    private Integer hargaTawar;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private Users users;
 
-
-    @Column
-    private Integer hargaDeal;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "productId")
+    private Product product;
 
     @CreationTimestamp
     private LocalDateTime creaDateTime;
 
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
+
 }

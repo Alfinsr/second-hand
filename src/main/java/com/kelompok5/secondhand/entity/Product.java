@@ -5,7 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
@@ -27,6 +31,12 @@ public class Product {
     @Column
     private String deskripsiProduct;
 
+    @CreationTimestamp
+    private LocalDateTime creaDateTime;
+
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private Users users;
@@ -47,6 +57,12 @@ public class Product {
             cascade = CascadeType.ALL,
             mappedBy = "product")
     private Wishlist wishlist;
+
+    @JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "product")
+    private Notifikasi notifikasi;
 
     @Column
     @Enumerated(EnumType.ORDINAL)

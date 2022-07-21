@@ -2,8 +2,11 @@ package com.kelompok5.secondhand.entity;
 
 import com.kelompok5.secondhand.utils.StatutsTawaranEnum;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -31,5 +34,11 @@ public class Tawaran {
     @Column
     @Enumerated(EnumType.ORDINAL)
     private StatutsTawaranEnum statusTawaran = StatutsTawaranEnum.WAITING;
+
+    @CreationTimestamp
+    private LocalDateTime creaDateTime;
+
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
 
 }

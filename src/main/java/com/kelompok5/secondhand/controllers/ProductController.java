@@ -9,7 +9,6 @@ import com.kelompok5.secondhand.services.ProductServices;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,12 +28,10 @@ public class ProductController {
     @Autowired
     private final ProductServices productServices;
 
-    @Autowired
-    private final CloudinaryStorageService cloudinaryStorageService;
 
 
-    @Autowired
-    ModelMapper modelMapper;
+
+
 
     @PostMapping(value = "/Product",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
