@@ -81,6 +81,6 @@ public class TawaranServiceImpl implements TawaranServices{
         tawaran.setStatusTawaran(tawaranDto.getStatutsTawaran());
         tawaranRepository.save(tawaran);
 
-        return new SuccessDataResult<>(tawaran, "Success update status tawaran");
+        return new SuccessDataResult<>( "Success update status tawaran");
     }
 }
