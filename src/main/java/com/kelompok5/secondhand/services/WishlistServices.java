@@ -2,6 +2,7 @@ package com.kelompok5.secondhand.services;
 
 import com.kelompok5.secondhand.dto.WishlistDto;
 import com.kelompok5.secondhand.entity.Wishlist;
+import com.kelompok5.secondhand.result.Result;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,6 +17,6 @@ public interface WishlistServices {
 
     Wishlist updateWishlist(Wishlist wishlist);
 
-    String deleteWishlist(Integer id);
+    Result deleteWishlist(Integer id);
 
 }

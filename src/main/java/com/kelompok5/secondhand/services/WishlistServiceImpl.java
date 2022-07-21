@@ -7,6 +7,9 @@ import com.kelompok5.secondhand.entity.Wishlist;
 import com.kelompok5.secondhand.repository.ProductRepository;
 import com.kelompok5.secondhand.repository.UsersRepository;
 import com.kelompok5.secondhand.repository.WishlistRepository;
+import com.kelompok5.secondhand.result.ErrorDataResult;
+import com.kelompok5.secondhand.result.Result;
+import com.kelompok5.secondhand.result.SuccessDataResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,13 +60,13 @@ public class WishlistServiceImpl implements WishlistServices{
     }
 
     @Override
-    public String deleteWishlist(Integer wishlistId) {
+    public Result deleteWishlist(Integer wishlistId) {
         Wishlist wishlist = wishlistRepository.findById(wishlistId).orElseThrow();
         if(wishlist.getWishlistId() !=null){
             wishlistRepository.deleteById(wishlistId);
-            return "sukses";
+            return new SuccessDataResult<>("Success delete wishlist");
         }else{
-            return "gagal";
+            return new ErrorDataResult<>("Fail when delete wishlist");
         }
     }
 }

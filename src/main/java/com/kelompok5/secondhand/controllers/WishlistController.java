@@ -5,6 +5,7 @@ package com.kelompok5.secondhand.controllers;
 
 import com.kelompok5.secondhand.dto.WishlistDto;
 import com.kelompok5.secondhand.entity.Wishlist;
+import com.kelompok5.secondhand.result.Result;
 import com.kelompok5.secondhand.services.WishlistServices;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -53,7 +54,7 @@ public class WishlistController {
 
     @CrossOrigin("*")
     @DeleteMapping("/wishlist/{id}")
-    public ResponseEntity<String> deleteWishlist(@PathVariable Integer id){
-        return new ResponseEntity<String>(wishlistServices.deleteWishlist(id), HttpStatus.ACCEPTED);
+    public ResponseEntity<Result> deleteWishlist(@PathVariable Integer id){
+        return new ResponseEntity<>(wishlistServices.deleteWishlist(id), HttpStatus.ACCEPTED);
     }
 }
