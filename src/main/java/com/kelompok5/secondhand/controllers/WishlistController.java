@@ -52,7 +52,7 @@ public class WishlistController {
 
 
     @CrossOrigin("*")
-    @DeleteMapping("/Wishlist/{id}")
+    @DeleteMapping("/wishlist/{id}")
     public ResponseEntity<String> deleteWishlist(@PathVariable Integer id){
         return new ResponseEntity<String>(wishlistServices.deleteWishlist(id), HttpStatus.ACCEPTED);
     }
