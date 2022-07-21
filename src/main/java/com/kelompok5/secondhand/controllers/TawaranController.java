@@ -49,6 +49,11 @@ public class TawaranController {
         return new ResponseEntity<>(tawaranService.getTawaranBuyer(authentication.getName()), HttpStatus.OK);
     }
 
+    @PutMapping("/tawaran/{id}")
+    public ResponseEntity<Result> updateStatusTawaran(@PathVariable Integer id, @RequestBody TawaranDto tawaranDto){
+        return new ResponseEntity<>(tawaranService.updateTawaran(id,tawaranDto), HttpStatus.ACCEPTED);
+    }
+
 
 
 }

@@ -12,6 +12,7 @@ import com.kelompok5.secondhand.repository.UsersRepository;
 import com.kelompok5.secondhand.result.Result;
 import com.kelompok5.secondhand.result.SuccessDataResult;
 import com.kelompok5.secondhand.result.SuccessResult;
+import com.kelompok5.secondhand.utils.StatutsTawaranEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,5 +73,14 @@ public class TawaranServiceImpl implements TawaranServices{
         Users users = usersRepository.findByUsername(username);
         List<Tawaran> tawarans = tawaranRepository.findByUsers(users);
         return  new SuccessDataResult<>(tawarans, "Success get tawaran by buyer");
+    }
+
+    @Override
+    public Result updateTawaran(Integer tawaranId, TawaranDto tawaranDto) {
+        Tawaran tawaran = tawaranRepository.getById(tawaranId);
+        tawaran.setStatusTawaran(tawaranDto.getStatutsTawaran());
+        tawaranRepository.save(tawaran);
+
+        return new SuccessDataResult<>(tawaran, "Success update status tawaran");
     }
 }
