@@ -74,6 +74,7 @@ public class ProductServicesImpl implements ProductServices {
        productRepository.save(product);
 
 
+
         for (int i=0; i<body.getImageProduct().size();i++){
             Map<?, ?> uploadImage = (Map<?, ?>) cloudinaryStorageService.upload(body.getImageProduct().get(i)).getData();
             ImageProduct imageProduct = new ImageProduct();
@@ -91,7 +92,7 @@ public class ProductServicesImpl implements ProductServices {
         Product product = productRepository.findById(id).orElseThrow();
 
         if(body.getImageProduct()== null){
-            System.out.println("Tidak ada image");
+
             product.setNamaProduct(body.getNamaProduct());
             product.setHargaProduct(body.getHargaProduct());
             product.setDeskripsiProduct(body.getDeskripsiProduct());
@@ -101,9 +102,9 @@ public class ProductServicesImpl implements ProductServices {
 
 
         }else{
-          for(ImageProduct str : product.getImageProduct()){
-              System.out.println(str.getImageId());
-          }
+            List<ImageProduct> imageProduct = imageRepository.findByProduct(product);
+            imageRepository.deleteAll(imageProduct);
+        
         }
 
 

@@ -3,7 +3,6 @@ package com.kelompok5.secondhand.services;
 import com.kelompok5.secondhand.entity.Notifikasi;
 import com.kelompok5.secondhand.entity.Users;
 import com.kelompok5.secondhand.repository.NotifikasiRepository;
-import com.kelompok5.secondhand.repository.ProductRepository;
 import com.kelompok5.secondhand.repository.UsersRepository;
 import com.kelompok5.secondhand.result.Result;
 import com.kelompok5.secondhand.result.SuccessDataResult;

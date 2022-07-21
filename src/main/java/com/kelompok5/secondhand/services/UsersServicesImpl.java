@@ -19,8 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+
 
 
 @Service
@@ -43,6 +42,7 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
             log.error("User not found in the database");
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        assert user != null;
         user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
@@ -57,7 +57,7 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
            String encodePassword = bCryptPasswordEncoder.encode(body.getPassword());
            body.setPassword(encodePassword);
            usersRepository.save(body);
-           return new SuccessDataResult(body, "Success Register User");
+           return new SuccessDataResult<>(body, "Success Register User");
        }catch (Exception e){
            return new ErrorResult("User sudah terdaftar");
        }
@@ -69,7 +69,7 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
     @Override
     public Result getUserById(String username) {
      Users users = usersRepository.findByUsername(username);
-     return  new SuccessDataResult(users,"Success Get User By Id");
+     return  new SuccessDataResult<>(users,"Success Get User By Id");
     }
 
     @Override

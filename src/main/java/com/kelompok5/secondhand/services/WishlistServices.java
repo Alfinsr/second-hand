@@ -15,7 +15,7 @@ public interface WishlistServices {
     Wishlist postWishlist(WishlistDto body, String username);
     Optional<Wishlist> getWishlistById(Integer id);
 
-    Wishlist updateWishlist(Wishlist wishlist);
+
 
     Result deleteWishlist(Integer id);
 

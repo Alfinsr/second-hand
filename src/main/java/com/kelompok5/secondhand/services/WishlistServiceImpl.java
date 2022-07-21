@@ -26,7 +26,7 @@ public class WishlistServiceImpl implements WishlistServices{
     @Autowired
     private final ProductRepository productRepository;
     @Autowired
-    private WishlistRepository wishlistRepository;
+    private final WishlistRepository wishlistRepository;
 
     @Override
     public Wishlist postWishlist(WishlistDto wishlist, String username) {
@@ -46,18 +46,11 @@ public class WishlistServiceImpl implements WishlistServices{
     }
 
     @Override
-    public Optional<Wishlist> getWishlistById(Integer wishlist_id) {
-        return wishlistRepository.findById(wishlist_id);
+    public Optional<Wishlist> getWishlistById(Integer wishlistId) {
+        return wishlistRepository.findById(wishlistId);
     }
 
-    @Override
-    public Wishlist updateWishlist(Wishlist wishlist) {
-        if(wishlistRepository.findById(wishlist.getWishlistId().intValue()).isPresent()){
-            return wishlistRepository.save(wishlist);
-        }else {
-            return new Wishlist();
-        }
-    }
+
 
     @Override
     public Result deleteWishlist(Integer wishlistId) {
