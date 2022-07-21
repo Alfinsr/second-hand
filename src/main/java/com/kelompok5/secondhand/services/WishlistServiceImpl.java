@@ -22,7 +22,6 @@ public class WishlistServiceImpl implements WishlistServices{
 
     @Autowired
     private final UsersRepository usersRepository;
-
     @Autowired
     private final ProductRepository productRepository;
     @Autowired

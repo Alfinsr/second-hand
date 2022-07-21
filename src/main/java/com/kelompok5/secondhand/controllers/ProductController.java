@@ -4,7 +4,6 @@ import com.kelompok5.secondhand.dto.ProductDto;
 import com.kelompok5.secondhand.entity.Product;
 import com.kelompok5.secondhand.result.DataResult;
 import com.kelompok5.secondhand.result.Result;
-import com.kelompok5.secondhand.services.CloudinaryStorageService;
 import com.kelompok5.secondhand.services.ProductServices;
 
 import lombok.RequiredArgsConstructor;
@@ -27,11 +26,7 @@ public class ProductController {
 
     @Autowired
     private final ProductServices productServices;
-
-
-
-
-
+    
 
     @PostMapping(value = "/Product",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
@@ -44,9 +39,18 @@ public class ProductController {
     @GetMapping("/Product")
     public ResponseEntity<DataResult<List<Product>>> getAllProduct(@RequestParam(value = "q", required = false) String q, @RequestParam(value = "kategori", required = false) String kategori
             , @RequestParam(value = "pageNo", required = false) int pageNo
-            , @RequestParam(value = "pageSize", required = false) int pageSize) {
+            , @RequestParam(value = "pageSize", required = false) int pageSize
+            , Authentication  authentication) {
+      try {
+          return new ResponseEntity<>(productServices.getAllProductWithLogin(pageNo, pageSize, kategori, q, authentication.getName()), HttpStatus.OK);
+      }catch (Exception e){
 
         return new ResponseEntity<>(productServices.getAllProduct(pageNo, pageSize, kategori, q), HttpStatus.OK);
+
+
+
+        }
+
 
     }
 

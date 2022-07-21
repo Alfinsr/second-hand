@@ -55,6 +55,13 @@ public class ProductServicesImpl implements ProductServices {
     }
 
     @Override
+    public DataResult<List<Product>> getAllProductWithLogin(int pageNo, int pageSize, String kategori, String q, String username) {
+        Users users = usersRepository.findByUsername(username);
+        Pageable paging = PageRequest.of(pageNo, pageSize);
+        return new SuccessDataResult<>(productRepository.searchProductsWithLogin(kategori,q, users.getIdUser(),paging),"Success get all product");
+    }
+
+    @Override
     public Optional<Product> getProductById(Integer id) {
         return productRepository.findById(id);
     }
@@ -141,10 +148,7 @@ public class ProductServicesImpl implements ProductServices {
 
     }
 
-    @Override
-    public List<Product> searchProduct(String query) {
-        return productRepository.searchProduct(query);
-    }
+
 
 
 
