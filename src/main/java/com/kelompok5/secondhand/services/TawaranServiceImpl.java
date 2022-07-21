@@ -12,7 +12,6 @@ import com.kelompok5.secondhand.repository.UsersRepository;
 import com.kelompok5.secondhand.result.Result;
 import com.kelompok5.secondhand.result.SuccessDataResult;
 import com.kelompok5.secondhand.result.SuccessResult;
-import com.kelompok5.secondhand.utils.StatutsTawaranEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

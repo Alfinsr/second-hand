@@ -50,7 +50,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("*");
         config.addAllowedHeader(config.ALL);
-        config.addAllowedHeader(config.ALL);
         config.addAllowedMethod(config.ALL);
         source.registerCorsConfiguration("/**", config);
         return source;

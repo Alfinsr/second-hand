@@ -45,11 +45,7 @@ public class WishlistController {
         return new ResponseEntity<>(wishlistServices.getWishlistById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/wishlist/{id}")
-    public ResponseEntity<Wishlist> updateWishlist(@RequestBody WishlistDto wishlistDto, @PathVariable Integer id){
-        Wishlist wishlist = modelMapper.map(wishlistDto, Wishlist.class);
-        return new ResponseEntity<>(wishlistServices.updateWishlist(wishlist), HttpStatus.ACCEPTED);
-    }
+
 
 
     @CrossOrigin("*")

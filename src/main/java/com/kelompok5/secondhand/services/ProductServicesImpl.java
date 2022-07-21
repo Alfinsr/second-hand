@@ -21,7 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Map;
@@ -62,14 +62,14 @@ public class ProductServicesImpl implements ProductServices {
     @Override
     public Result postProduct(ProductDto body,String username) {
         Users optionalUsers = usersRepository.findByUsername(username);
-        Optional<Kategori> optionalKategori = kategoriRepository.findById(body.getIdKategori());
+        Kategori optionalKategori = kategoriRepository.findById(body.getIdKategori()).orElseThrow();
 
        Product product = new Product();
        product.setNamaProduct(body.getNamaProduct());
        product.setHargaProduct(body.getHargaProduct());
        product.setStatusProduct(body.getStatusProduct());
        product.setDeskripsiProduct(body.getDeskripsiProduct());
-       product.setKategori(optionalKategori.get());
+       product.setKategori(optionalKategori);
        product.setUsers(optionalUsers);
        productRepository.save(product);
 
@@ -88,7 +88,7 @@ public class ProductServicesImpl implements ProductServices {
 
     @Override
     public Result updateProduct(ProductDto body, Integer id) {
-        Optional<Kategori> kategori = kategoriRepository.findById(body.getIdKategori());
+        Kategori kategori = kategoriRepository.findById(body.getIdKategori()).orElseThrow();
         Product product = productRepository.findById(id).orElseThrow();
 
         if(body.getImageProduct()== null){
@@ -96,20 +96,29 @@ public class ProductServicesImpl implements ProductServices {
             product.setNamaProduct(body.getNamaProduct());
             product.setHargaProduct(body.getHargaProduct());
             product.setDeskripsiProduct(body.getDeskripsiProduct());
-            product.setKategori(kategori.get());
+            product.setKategori(kategori);
             product.setStatusProduct(body.getStatusProduct());
             productRepository.save(product);
 
 
         }else{
-            List<ImageProduct> imageProduct = imageRepository.findByProduct(product);
-            imageRepository.deleteAll(imageProduct);
-        
+            Iterable<ImageProduct> imageProduct = imageRepository.findByProduct(product);
+
+            imageRepository.deleteAllInBatch(imageProduct);
+            for (int i=0; i<body.getImageProduct().size();i++){
+                Map<?, ?> uploadImage = (Map<?, ?>) cloudinaryStorageService.upload(body.getImageProduct().get(i)).getData();
+                ImageProduct imageProducts = new ImageProduct();
+                imageProducts.setProduct(product);
+                imageProducts.setUrlImage(uploadImage.get("url").toString());
+                imageRepository.save(imageProducts);
+            }
+
+
         }
 
 
 
-        return new SuccessDataResult<>(body, "Success Update products");
+        return new SuccessDataResult<>( "Success Update products");
 
     }
 

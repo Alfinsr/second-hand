@@ -32,10 +32,10 @@ public class WishlistServiceImpl implements WishlistServices{
     public Wishlist postWishlist(WishlistDto wishlist, String username) {
 
       Users users = usersRepository.findByUsername(username);
-        Optional<Product> optionalProduct = productRepository.findById(wishlist.getIdProduct());
+        Product product = productRepository.findById(wishlist.getIdProduct()).orElseThrow();
         Wishlist wishlist1 = new Wishlist();
         wishlist1.setUsers(users);
-        wishlist1.setProduct(optionalProduct.get());
+        wishlist1.setProduct(product);
         return wishlistRepository.save(wishlist1);
     }
 

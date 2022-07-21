@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -34,10 +33,10 @@ public class TransaksiServicesImpl implements TransaksiServices{
     @Override
     public Result postTransaksi(Transaksi body,String username) {
         Users users = usersRepository.findByUsername(username);
-        Optional<Product> optionalProduct = productRepository.findById(body.getIdTransaksi());
+        Product product = productRepository.findById(body.getIdTransaksi()).orElseThrow();
 
         Transaksi transaksi = new Transaksi();
-        transaksi.setProduct(optionalProduct.get());
+        transaksi.setProduct(product);
         transaksi.setUsers(users);
         transaksi.setHargaDeal(body.getHargaDeal());
 
