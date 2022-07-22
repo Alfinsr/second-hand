@@ -18,3 +18,4 @@ Production:
     url: $HEROKU_APP_HOST
   only:
     - staging
+    - main
