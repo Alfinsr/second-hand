@@ -23,11 +23,11 @@ public class Wishlist implements Serializable {
     private Integer wishlistId;
 
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne()
     @JoinColumn(name = "userId")
     private Users users;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne()
     @JoinColumn(name = "productId")
     private Product product;
 }
