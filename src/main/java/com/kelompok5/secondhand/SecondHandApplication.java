@@ -14,16 +14,16 @@ public class SecondHandApplication {
 		SpringApplication.run(SecondHandApplication.class, args);
 	}
 
-	@Bean
-	public WebMvcConfigurer configurer(){
-		return new WebMvcConfigurer(){
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
-						.allowedOrigins("*");
-			}
-		};
-	}
+//	@Bean
+//	public WebMvcConfigurer configurer(){
+//		return new WebMvcConfigurer(){
+//			@Override
+//			public void addCorsMappings(CorsRegistry registry) {
+//				registry.addMapping("/**")
+//						.allowedOrigins("*");
+//			}
+//		};
+//	}
 
 	@Bean
 	public ModelMapper modelMapper(){
