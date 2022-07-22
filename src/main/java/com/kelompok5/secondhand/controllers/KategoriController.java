@@ -33,7 +33,7 @@ public class KategoriController {
         return new ResponseEntity<>(kategoriServices.getAllKategori(), HttpStatus.OK);
     }
 
-    //uncoment when deployment
+
 
     @GetMapping("/kategori/{id}")
     public ResponseEntity<Optional<Kategori>> getKategoriById(@PathVariable Integer id){
