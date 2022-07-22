@@ -41,7 +41,7 @@ public class Product {
     @JoinColumn(name = "userId")
     private Users users;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name="katgoriId")
     private Kategori kategori;
 
