@@ -90,7 +90,7 @@ public class ProductServicesImpl implements ProductServices {
             imageRepository.save(imageProduct);
         }
 
-        return new SuccessDataResult<>("Success post products");
+        return new SuccessResult("Success post products");
     }
 
     @Override
