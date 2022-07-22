@@ -23,7 +23,6 @@ public interface ProductServices {
     Result postProduct(ProductDto body, String username);
     Optional<Product>getProductById(Integer id);
     Result updateProduct(ProductDto body, Integer id);
-
     Result deleteProduct(Integer id);
     DataResult<List<Product>>  getProductByUser(String username);
     Product findProductById(Integer idProduct);

@@ -132,7 +132,7 @@ public class ProductServicesImpl implements ProductServices {
     @Override
     public Result deleteProduct(Integer id) {
         productRepository.deleteById(id);
-        return new SuccessResult("Success Delete User");
+        return new SuccessResult("Success Delete Product");
     }
 
     @Override
