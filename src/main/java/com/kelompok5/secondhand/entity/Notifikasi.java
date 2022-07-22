@@ -28,13 +28,7 @@ public class Notifikasi {
     @JoinColumn(name = "tawaranId")
     private Tawaran tawaran;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId")
-    private Users users;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "productId")
-    private Product product;
+ 
 
     @CreationTimestamp
     private LocalDateTime creaDateTime;
