@@ -54,7 +54,7 @@ public class WishlistServiceImpl implements WishlistServices{
 
     @Override
     public Result deleteWishlist(Integer wishlistId) {
-       wishlistRepository.deleteWishlist(wishlistId);
+       wishlistRepository.deleteById(wishlistId);
        return new SuccessResult("Success Delete Wishlist");
     }
 }
