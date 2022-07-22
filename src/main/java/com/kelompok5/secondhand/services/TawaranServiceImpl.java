@@ -47,7 +47,7 @@ public class TawaranServiceImpl implements TawaranServices{
         Notifikasi notifikasi = new Notifikasi();
         notifikasi.setProduct(product);
         notifikasi.setUsers(users);
-        notifikasi.setHargaTawar(tawaranDto.getHargaTawaran());
+        notifikasi.setTawaran(tawaran);
         notifikasi.setTitle("Penawaran Produk");
 
         notifikasiRepository.save(notifikasi);

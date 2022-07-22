@@ -1,5 +1,6 @@
 package com.kelompok5.secondhand.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kelompok5.secondhand.utils.StatutsTawaranEnum;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -34,6 +35,13 @@ public class Tawaran {
     @Column
     @Enumerated(EnumType.ORDINAL)
     private StatutsTawaranEnum statusTawaran = StatutsTawaranEnum.WAITING;
+
+    @JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "tawaran")
+    private Notifikasi notifikasi;
+
 
     @CreationTimestamp
     private LocalDateTime creaDateTime;
