@@ -68,6 +68,6 @@ public class Product {
     @Enumerated(EnumType.ORDINAL)
     private StatusProductEnum statusProduct= StatusProductEnum.DIBUAT;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<ImageProduct> imageProduct;
 }
