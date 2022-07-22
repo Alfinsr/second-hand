@@ -55,7 +55,6 @@ public class Product implements Serializable {
 
     @JsonBackReference
     @OneToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
             mappedBy = "product")
     private Wishlist wishlist;
 
