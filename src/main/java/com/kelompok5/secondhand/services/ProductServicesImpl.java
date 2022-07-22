@@ -131,10 +131,6 @@ public class ProductServicesImpl implements ProductServices {
 
     @Override
     public Result deleteProduct(Integer id) {
-        Product product = productRepository.findById(id).orElseThrow();
-        Iterable<ImageProduct> imageProduct = imageRepository.findByProduct(product);
-
-        imageRepository.deleteAllInBatch(imageProduct);
         productRepository.deleteById(id);
         return new SuccessResult("Success Delete Product");
     }
