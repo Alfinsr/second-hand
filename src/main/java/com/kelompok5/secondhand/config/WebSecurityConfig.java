@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         CustomAuthenticationFilter customAuthenticationFIlter = new CustomAuthenticationFilter(authenticationManagerBean());
         customAuthenticationFIlter.setFilterProcessesUrl("/signin");
         http.csrf().disable();
-        http.cors();
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers( "/signup/**").permitAll();
         http.authorizeRequests().antMatchers("/signin/**").permitAll();

@@ -39,7 +39,7 @@ public class TransaksiServicesImpl implements TransaksiServices{
         transaksi.setUsers(users);
         transaksi.setHargaDeal(body.getHargaDeal());
         transaksiRepository.save(transaksi);
-        return new SuccessDataResult<>(body,"Success post transaksi");
+        return new SuccessDataResult<>("Success post transaksi");
     }
 
     @Override
