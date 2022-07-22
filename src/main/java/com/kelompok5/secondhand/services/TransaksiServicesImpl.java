@@ -21,8 +21,7 @@ import org.springframework.stereotype.Service;
 public class TransaksiServicesImpl implements TransaksiServices{
     @Autowired
     private final TransaksiRepository transaksiRepository;
-
-
+    
     @Autowired
     private final UsersRepository usersRepository;
 
@@ -39,21 +38,19 @@ public class TransaksiServicesImpl implements TransaksiServices{
         transaksi.setProduct(product);
         transaksi.setUsers(users);
         transaksi.setHargaDeal(body.getHargaDeal());
-
-
-
         transaksiRepository.save(transaksi);
         return new SuccessDataResult<>(body,"Success post transaksi");
     }
 
     @Override
     public Result getTransaksiSeller(String username) {
-
-        return null;
+        Users users = usersRepository.findByUsername(username);
+        return new SuccessDataResult<>(transaksiRepository.findByProductUsers(users),"Success get all histori transaksi seller");
     }
 
     @Override
     public Result getTransaksiBuyer(String username) {
-        return null;
+        Users users = usersRepository.findByUsername(username);
+        return new SuccessDataResult<>(transaksiRepository.findByUsers(users));
     }
 }

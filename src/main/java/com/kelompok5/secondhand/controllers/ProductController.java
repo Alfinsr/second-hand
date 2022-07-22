@@ -26,7 +26,7 @@ public class ProductController {
 
     @Autowired
     private final ProductServices productServices;
-    
+
 
     @PostMapping(value = "/Product",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
