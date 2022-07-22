@@ -63,7 +63,6 @@ public class Users implements Serializable {
 
     @JsonBackReference
     @OneToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
             mappedBy = "users")
     private Notifikasi notifikasi;
 
