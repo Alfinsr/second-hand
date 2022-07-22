@@ -12,10 +12,10 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
 
 
 
-    @Query("SELECT p FROM product p INNER JOIN p.kategori k  where  k.namaKategori like CONCAT('%',:kategoris,'%')  AND p.namaProduct like CONCAT ('%',:search,'%') ")
+    @Query("SELECT p FROM product p INNER JOIN p.kategori k  where  k.namaKategori like CONCAT('%',:kategoris,'%')  AND p.namaProduct like CONCAT ('%',:search,'%') ORDER BY p.creaDateTime ASC")
     List<Product> searchProducts(String kategoris, String search, Pageable pageable);
 
-    @Query("SELECT p FROM product p INNER JOIN p.kategori k INNER JOIN p.users u where  k.namaKategori like CONCAT('%',:kategoris,'%')  AND p.namaProduct like CONCAT ('%',:search,'%') AND u.idUser != :idUser")
+    @Query("SELECT p FROM product p INNER JOIN p.kategori k INNER JOIN p.users u where  k.namaKategori like CONCAT('%',:kategoris,'%')  AND p.namaProduct like CONCAT ('%',:search,'%') AND u.idUser != :idUser ORDER BY p.creaDateTime ASC")
     List<Product> searchProductsWithLogin(String kategoris, String search,Integer idUser, Pageable pageable);
 
 

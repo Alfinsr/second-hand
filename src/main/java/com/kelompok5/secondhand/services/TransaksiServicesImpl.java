@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 public class TransaksiServicesImpl implements TransaksiServices{
     @Autowired
     private final TransaksiRepository transaksiRepository;
-    
+
     @Autowired
     private final UsersRepository usersRepository;
 
