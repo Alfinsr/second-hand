@@ -37,7 +37,7 @@ public class Product {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "userId")
     private Users users;
 
