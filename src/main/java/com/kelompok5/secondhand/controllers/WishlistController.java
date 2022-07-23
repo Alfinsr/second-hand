@@ -48,7 +48,7 @@ public class WishlistController {
 
 
 
-    @CrossOrigin("/**")
+
     @DeleteMapping("/wishlist/{id}")
     public ResponseEntity<Result> deleteWishlist(@PathVariable Integer id){
         return new ResponseEntity<>(wishlistServices.deleteWishlist(id), HttpStatus.ACCEPTED);
