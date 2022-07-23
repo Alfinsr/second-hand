@@ -58,7 +58,7 @@ public class Product implements Serializable {
             mappedBy = "product")
     private Wishlist wishlist;
 
-   
+
 
     @Column
     @Enumerated(EnumType.ORDINAL)

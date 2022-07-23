@@ -61,10 +61,7 @@ public class Users implements Serializable {
             mappedBy = "users")
     private Transaksi transaksi;
 
-    @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY,
-            mappedBy = "users")
-    private Notifikasi notifikasi;
+   
 
     @ManyToMany(fetch = FetchType.EAGER )
     private Collection<Role> roles = new ArrayList<>();
