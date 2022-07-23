@@ -2,6 +2,7 @@ package com.kelompok5.secondhand.controllers;
 
 import com.kelompok5.secondhand.dto.KategoriDto;
 import com.kelompok5.secondhand.entity.Kategori;
+import com.kelompok5.secondhand.result.Result;
 import com.kelompok5.secondhand.services.KategoriServices;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -23,9 +24,15 @@ public class KategoriController {
     ModelMapper modelMapper;
 
     @PostMapping("/kategori")
-    public ResponseEntity<Kategori> postKategori(@RequestBody KategoriDto kategoriDto){
+    public ResponseEntity<Result> postKategori(@RequestBody KategoriDto kategoriDto){
         Kategori kategori = modelMapper.map(kategoriDto, Kategori.class);
-        return new ResponseEntity<>(kategoriServices.postKategori(kategori), HttpStatus.CREATED);
+       List<Kategori> kategoriList= kategoriServices.getAllKategori();
+       if(kategoriList.size() > 4){
+           return new ResponseEntity<>(kategoriServices.postKategori(kategori), HttpStatus.INTERNAL_SERVER_ERROR);
+       }else{
+
+           return new ResponseEntity<>(kategoriServices.postKategori(kategori), HttpStatus.CREATED);
+       }
     }
 
     @GetMapping("/kategori")

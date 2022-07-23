@@ -9,10 +9,7 @@ import com.kelompok5.secondhand.repository.ImageRepository;
 import com.kelompok5.secondhand.repository.KategoriRepository;
 import com.kelompok5.secondhand.repository.ProductRepository;
 import com.kelompok5.secondhand.repository.UsersRepository;
-import com.kelompok5.secondhand.result.DataResult;
-import com.kelompok5.secondhand.result.Result;
-import com.kelompok5.secondhand.result.SuccessDataResult;
-import com.kelompok5.secondhand.result.SuccessResult;
+import com.kelompok5.secondhand.result.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,27 +67,34 @@ public class ProductServicesImpl implements ProductServices {
     public Result postProduct(ProductDto body,String username) {
         Users optionalUsers = usersRepository.findByUsername(username);
         Kategori optionalKategori = kategoriRepository.findById(body.getIdKategori()).orElseThrow();
+        DataResult<List<Product>> listDataResult = getProductByUser(username);
+        if (listDataResult.getData().size() > 3){
+           return new ErrorResult("Maximum post product is 4");
+        }else{
+            Product product = new Product();
+            product.setNamaProduct(body.getNamaProduct());
+            product.setHargaProduct(body.getHargaProduct());
+            product.setStatusProduct(body.getStatusProduct());
+            product.setDeskripsiProduct(body.getDeskripsiProduct());
+            product.setKategori(optionalKategori);
+            product.setUsers(optionalUsers);
+            productRepository.save(product);
 
-       Product product = new Product();
-       product.setNamaProduct(body.getNamaProduct());
-       product.setHargaProduct(body.getHargaProduct());
-       product.setStatusProduct(body.getStatusProduct());
-       product.setDeskripsiProduct(body.getDeskripsiProduct());
-       product.setKategori(optionalKategori);
-       product.setUsers(optionalUsers);
-       productRepository.save(product);
 
 
+            for (int i=0; i<body.getImageProduct().size();i++){
+                Map<?, ?> uploadImage = (Map<?, ?>) cloudinaryStorageService.upload(body.getImageProduct().get(i)).getData();
+                ImageProduct imageProduct = new ImageProduct();
+                imageProduct.setProduct(product);
+                imageProduct.setUrlImage(uploadImage.get("url").toString());
+                imageRepository.save(imageProduct);
+            }
 
-        for (int i=0; i<body.getImageProduct().size();i++){
-            Map<?, ?> uploadImage = (Map<?, ?>) cloudinaryStorageService.upload(body.getImageProduct().get(i)).getData();
-            ImageProduct imageProduct = new ImageProduct();
-            imageProduct.setProduct(product);
-            imageProduct.setUrlImage(uploadImage.get("url").toString());
-            imageRepository.save(imageProduct);
+            return new SuccessResult("Success post products");
+
         }
 
-        return new SuccessResult("Success post products");
+
     }
 
     @Override

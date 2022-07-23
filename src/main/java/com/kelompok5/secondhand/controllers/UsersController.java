@@ -44,7 +44,7 @@ public class UsersController {
         return new ResponseEntity<>(usersServices.getUserById(authentication.getName()), HttpStatus.OK);
     }
 
-    
+
     @PutMapping("/Users")
     public ResponseEntity<Result> updateUsers(UsersDto usersDto, Authentication authentication) {
        String username =  authentication.getName();

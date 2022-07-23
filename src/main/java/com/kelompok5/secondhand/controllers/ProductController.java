@@ -32,8 +32,12 @@ public class ProductController {
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Result> postProduct(ProductDto productDto, Authentication authentication) {
-
-        return new ResponseEntity<>(productServices.postProduct(productDto, authentication.getName()), HttpStatus.CREATED);
+      DataResult<List<Product>> listDataResult = productServices.getProductByUser(authentication.getName());
+      if(listDataResult.getData().size() > 3){
+          return new ResponseEntity<>(productServices.postProduct(productDto, authentication.getName()),HttpStatus.INTERNAL_SERVER_ERROR);
+      }else {
+          return new ResponseEntity<>(productServices.postProduct(productDto, authentication.getName()), HttpStatus.CREATED);
+      }
     }
 
     @GetMapping("/Product")
@@ -44,11 +48,7 @@ public class ProductController {
       try {
           return new ResponseEntity<>(productServices.getAllProductWithLogin(pageNo, pageSize, kategori, q, authentication.getName()), HttpStatus.OK);
       }catch (Exception e){
-
         return new ResponseEntity<>(productServices.getAllProduct(pageNo, pageSize, kategori, q), HttpStatus.OK);
-
-
-
         }
 
 
