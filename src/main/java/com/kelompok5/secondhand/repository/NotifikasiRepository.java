@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface NotifikasiRepository extends JpaRepository<Notifikasi, Integer> {
 
-    List<Notifikasi> findByProductUsers(Users users);
+    List<Notifikasi> findByTawaranUsers(Users users);
 }

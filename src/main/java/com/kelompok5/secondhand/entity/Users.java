@@ -61,7 +61,7 @@ public class Users implements Serializable {
             mappedBy = "users")
     private Transaksi transaksi;
 
-   
+
 
     @ManyToMany(fetch = FetchType.EAGER )
     private Collection<Role> roles = new ArrayList<>();

@@ -26,7 +26,7 @@ public class NotifikasiServicesImpl implements NotifikasiServices {
     @Override
     public Result getNotifikasi(String username) {
         Users users = usersRepository.findByUsername(username);
-        List<Notifikasi> notifikasiList = notifikasiRepository.findByProductUsers(users);
+        List<Notifikasi> notifikasiList = notifikasiRepository.findByTawaranUsers(users);
 
         return new SuccessDataResult<>(notifikasiList,"Success get all notifikasi");
     }
