@@ -58,11 +58,7 @@ public class Product implements Serializable {
             mappedBy = "product")
     private Wishlist wishlist;
 
-    @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            mappedBy = "product")
-    private Notifikasi notifikasi;
+   
 
     @Column
     @Enumerated(EnumType.ORDINAL)
