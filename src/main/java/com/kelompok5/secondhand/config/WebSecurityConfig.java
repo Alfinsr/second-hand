@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         CustomAuthenticationFilter customAuthenticationFIlter = new CustomAuthenticationFilter(authenticationManagerBean());
         customAuthenticationFIlter.setFilterProcessesUrl("/signin");
-        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+//        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers( "/signup/**").permitAll();
@@ -46,17 +46,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Bean
-    public CorsConfigurationSource configurationSource(){
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader(CorsConfiguration.ALL);
-        config.addAllowedMethod(CorsConfiguration.ALL);
-        source.registerCorsConfiguration("/**", config);
-        return source;
-
-    }
+//    @Bean
+//    public CorsConfigurationSource configurationSource(){
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.addAllowedOrigin("*");
+//        config.addAllowedHeader(CorsConfiguration.ALL);
+//        config.addAllowedMethod(CorsConfiguration.ALL);
+//        source.registerCorsConfiguration("/**", config);
+//        return source;
+//
+//    }
     private static final String[] AUTH_WHITELIST = {
             // -- Swagger UI v2
             "/v2/api-docs",
