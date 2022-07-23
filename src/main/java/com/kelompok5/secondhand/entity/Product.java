@@ -29,7 +29,7 @@ public class Product implements Serializable {
     @Column
     private Integer hargaProduct;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String deskripsiProduct;
 
     @CreationTimestamp
