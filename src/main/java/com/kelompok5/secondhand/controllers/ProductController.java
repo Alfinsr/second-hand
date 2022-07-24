@@ -81,8 +81,8 @@ public class ProductController {
     }
 
     @PutMapping("/Product-status/{id}")
-    public ResponseEntity<Result> updateStatusProduct(@PathVariable Integer id, ProductDto productDto){
-        return new ResponseEntity<>(productServices.updateStatusProduct(id,productDto),HttpStatus.ACCEPTED);
+    public ResponseEntity<Result> updateStatusProduct(@PathVariable Integer id, ProductDto productDto, Authentication authentication){
+        return new ResponseEntity<>(productServices.updateStatusProduct(id,productDto, authentication.getName()),HttpStatus.ACCEPTED);
     }
 
 }

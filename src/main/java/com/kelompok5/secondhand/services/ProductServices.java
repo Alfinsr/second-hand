@@ -23,6 +23,6 @@ public interface ProductServices {
     Result deleteProduct(Integer id);
     DataResult<List<Product>>  getProductByUser(String username);
 
-    Result updateStatusProduct(Integer id,ProductDto productDto);
+    Result updateStatusProduct(Integer id,ProductDto productDto,String username);
 
 }

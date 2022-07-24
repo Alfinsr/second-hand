@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -68,8 +69,12 @@ public class ProductServicesImpl implements ProductServices {
     public Result postProduct(ProductDto body,String username) {
         Users optionalUsers = usersRepository.findByUsername(username);
         Kategori optionalKategori = kategoriRepository.findById(body.getIdKategori()).orElseThrow();
+        List<Product> productList;
         DataResult<List<Product>> listDataResult = getProductByUser(username);
-        if (listDataResult.getData().size() > 3){
+        productList = listDataResult.getData().stream()
+                .filter(product -> product.getStatusProduct().equals(StatusProductEnum.PUBLISH))
+                .collect(Collectors.toList());
+        if (productList.size() > 3){
            return new ErrorResult("Maximum post product is 4");
         }else{
             Product product = new Product();
@@ -153,12 +158,21 @@ public class ProductServicesImpl implements ProductServices {
     }
 
     @Override
-    public Result updateStatusProduct(Integer id, ProductDto productDto) {
+    public Result updateStatusProduct(Integer id, ProductDto productDto,String username) {
         Product product = productRepository.findById(id).orElseThrow();
 
-        product.setStatusProduct(productDto.getStatusProduct());
-        productRepository.save(product);
+        List<Product> productList;
+        DataResult<List<Product>> listDataResult = getProductByUser(username);
+        productList = listDataResult.getData().stream()
+                .filter(products -> products.getStatusProduct().equals(StatusProductEnum.PUBLISH))
+                .collect(Collectors.toList());
+        if (productList.size() > 3 && productDto.getStatusProduct().equals(StatusProductEnum.PUBLISH)){
+            return new ErrorResult("Maximum post product is 4");
+        }else{
+            product.setStatusProduct(productDto.getStatusProduct());
+            productRepository.save(product);
+            return new SuccessResult("Success update status product");
+        }
 
-        return new SuccessResult("Success update status product");
     }
 }
