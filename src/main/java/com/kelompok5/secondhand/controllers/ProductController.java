@@ -80,6 +80,10 @@ public class ProductController {
         return new ResponseEntity<>(productServices.deleteProduct(id), HttpStatus.ACCEPTED);
     }
 
+    @PutMapping("/Product-status/{id}")
+    public ResponseEntity<Result> updateStatusProduct(@PathVariable Integer id, ProductDto productDto){
+        return new ResponseEntity<>(productServices.updateStatusProduct(id,productDto),HttpStatus.ACCEPTED);
+    }
 
 }
 

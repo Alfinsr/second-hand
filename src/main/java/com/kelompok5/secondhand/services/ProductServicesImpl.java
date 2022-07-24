@@ -10,6 +10,7 @@ import com.kelompok5.secondhand.repository.KategoriRepository;
 import com.kelompok5.secondhand.repository.ProductRepository;
 import com.kelompok5.secondhand.repository.UsersRepository;
 import com.kelompok5.secondhand.result.*;
+import com.kelompok5.secondhand.utils.StatusProductEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,13 +153,12 @@ public class ProductServicesImpl implements ProductServices {
     }
 
     @Override
-    public Product findProductById(Integer idProduct) {
-        return productRepository.findProductByIdProduct(idProduct);
+    public Result updateStatusProduct(Integer id, ProductDto productDto) {
+        Product product = productRepository.findById(id).orElseThrow();
 
+        product.setStatusProduct(productDto.getStatusProduct());
+        productRepository.save(product);
+
+        return new SuccessResult("Success update status product");
     }
-
-
-
-
-
 }
