@@ -6,6 +6,7 @@ import com.kelompok5.secondhand.result.DataResult;
 import com.kelompok5.secondhand.result.Result;
 import com.kelompok5.secondhand.services.ProductServices;
 
+import com.kelompok5.secondhand.utils.StatusProductEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController @RequiredArgsConstructor
 @Slf4j
@@ -33,7 +35,11 @@ public class ProductController {
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Result> postProduct(ProductDto productDto, Authentication authentication) {
       DataResult<List<Product>> listDataResult = productServices.getProductByUser(authentication.getName());
-      if(listDataResult.getData().size() > 3){
+        List<Product> productList;
+        productList = listDataResult.getData().stream()
+                .filter(product -> product.getStatusProduct().equals(StatusProductEnum.PUBLISH))
+                .collect(Collectors.toList());
+      if(productList.size() > 3 && productDto.getStatusProduct().equals(StatusProductEnum.PUBLISH)){
           return new ResponseEntity<>(productServices.postProduct(productDto, authentication.getName()),HttpStatus.INTERNAL_SERVER_ERROR);
       }else {
           return new ResponseEntity<>(productServices.postProduct(productDto, authentication.getName()), HttpStatus.CREATED);
@@ -82,7 +88,18 @@ public class ProductController {
 
     @PutMapping("/Product-status/{id}")
     public ResponseEntity<Result> updateStatusProduct(@PathVariable Integer id, ProductDto productDto, Authentication authentication){
-        return new ResponseEntity<>(productServices.updateStatusProduct(id,productDto, authentication.getName()),HttpStatus.ACCEPTED);
+        DataResult<List<Product>> listDataResult = productServices.getProductByUser(authentication.getName());
+        List<Product> productList;
+        productList = listDataResult.getData().stream()
+                .filter(product -> product.getStatusProduct().equals(StatusProductEnum.PUBLISH))
+                .collect(Collectors.toList());
+        if(productList.size() > 3 && productDto.getStatusProduct().equals(StatusProductEnum.PUBLISH) ){
+            return new ResponseEntity<>(productServices.updateStatusProduct(id,productDto, authentication.getName()),HttpStatus.INTERNAL_SERVER_ERROR);
+        }else{
+
+            return new ResponseEntity<>(productServices.updateStatusProduct(id,productDto, authentication.getName()),HttpStatus.ACCEPTED);
+        }
+
     }
 
 }
