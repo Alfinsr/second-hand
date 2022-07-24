@@ -38,6 +38,7 @@ public class Tawaran {
 
     @JsonBackReference
     @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
             mappedBy = "tawaran")
     private Notifikasi notifikasi;
 
