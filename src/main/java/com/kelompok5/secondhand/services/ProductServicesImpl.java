@@ -110,9 +110,14 @@ public class ProductServicesImpl implements ProductServices {
             product.setKategori(kategori);
             product.setStatusProduct(body.getStatusProduct());
             productRepository.save(product);
-
-
         }else{
+
+            product.setNamaProduct(body.getNamaProduct());
+            product.setHargaProduct(body.getHargaProduct());
+            product.setDeskripsiProduct(body.getDeskripsiProduct());
+            product.setKategori(kategori);
+            product.setStatusProduct(body.getStatusProduct());
+            productRepository.save(product);
             Iterable<ImageProduct> imageProduct = imageRepository.findByProduct(product);
 
             imageRepository.deleteAllInBatch(imageProduct);
