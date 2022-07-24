@@ -74,7 +74,7 @@ public class ProductServicesImpl implements ProductServices {
         productList = listDataResult.getData().stream()
                 .filter(product -> product.getStatusProduct().equals(StatusProductEnum.PUBLISH))
                 .collect(Collectors.toList());
-        if (productList.size() > 3){
+        if (productList.size() > 3 &&  body.getStatusProduct().equals(StatusProductEnum.PUBLISH)){
            return new ErrorResult("Maximum post product is 4");
         }else{
             Product product = new Product();
