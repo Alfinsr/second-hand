@@ -24,7 +24,7 @@ public class Notifikasi {
     @Column
     private String title;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "tawaranId")
     private Tawaran tawaran;
 
