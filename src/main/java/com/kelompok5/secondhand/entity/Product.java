@@ -58,6 +58,11 @@ public class Product implements Serializable {
             mappedBy = "product")
     private Wishlist wishlist;
 
+    @JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY,orphanRemoval = true,cascade = CascadeType.ALL,
+            mappedBy = "product")
+    private Tawaran tawaran;
+
 
 
     @Column
@@ -66,4 +71,6 @@ public class Product implements Serializable {
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<ImageProduct> imageProduct;
+
+
 }

@@ -25,7 +25,7 @@ public class Tawaran {
     @JoinColumn(name = "id_user")
     private Users users;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="id_product")
     private Product product;
 
