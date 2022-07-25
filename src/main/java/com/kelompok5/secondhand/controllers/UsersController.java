@@ -48,22 +48,16 @@ public class UsersController {
     @PutMapping("/Users")
     public ResponseEntity<Result> updateUsers(UsersDto usersDto, Authentication authentication) {
        String username =  authentication.getName();
-        Map<?, ?> uploadImage = (Map<?, ?>) cloudinaryStorageService.upload(usersDto.getProfileFoto()).getData();
-        Users users = new Users();
-        users.setKota(usersDto.getKota());
-        users.setEmail(usersDto.getEmail());
-        users.setFullName(usersDto.getFullName());
-        users.setAlamat(usersDto.getAlamat());
-        users.setNoWa(usersDto.getNoWa());
-        users.setProfileFoto(uploadImage.get("url").toString());
-        users.setUsername(usersDto.getUsername());
-        users.setPassword(usersDto.getPassword());
-
-        return new ResponseEntity<>(usersServices.updateUsers(users, username), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(usersServices.updateUsers(usersDto, username), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/Users/{id}")
     public ResponseEntity<Result> deleteUsers(@PathVariable Integer id){
         return new ResponseEntity<>(usersServices.deleteUser(id), HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/Users-password")
+    public ResponseEntity<Result> updatePassword(UsersDto usersDto, Authentication authentication){
+        return new ResponseEntity<>(usersServices.updatePassword(usersDto, authentication.getName()), HttpStatus.ACCEPTED);
     }
 }

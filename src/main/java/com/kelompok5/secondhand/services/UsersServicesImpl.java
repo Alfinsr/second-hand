@@ -1,6 +1,7 @@
 package com.kelompok5.secondhand.services;
 
 
+import com.kelompok5.secondhand.dto.UsersDto;
 import com.kelompok5.secondhand.entity.Users;
 import com.kelompok5.secondhand.repository.UsersRepository;
 import com.kelompok5.secondhand.result.ErrorResult;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
+import java.util.Map;
 
 
 @Service
@@ -32,6 +33,9 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
 
     @Autowired
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private final CloudinaryStorageService cloudinaryStorageService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -73,17 +77,30 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
     }
 
     @Override
-    public Result updateUsers(Users body,String username) {
+    public Result updateUsers(UsersDto body, String username) {
         Users users = usersRepository.findByUsername(username);
+        if(body.getProfileFoto() == null){
         users.setFullName(body.getFullName());
-        users.setPassword(bCryptPasswordEncoder.encode(body.getPassword()));
+
         users.setAlamat(body.getAlamat());
-        users.setEmail(body.getEmail());
+
         users.setKota(body.getKota());
         users.setNoWa(body.getNoWa());
-        users.setProfileFoto(body.getProfileFoto());
         usersRepository.save(users);
         return new SuccessResult("success update profile");
+        }else{
+
+            Map<?, ?> uploadImage = (Map<?, ?>) cloudinaryStorageService.upload(body.getProfileFoto()).getData();
+
+            users.setKota(body.getKota());
+            users.setFullName(body.getFullName());
+            users.setAlamat(body.getAlamat());
+            users.setNoWa(body.getNoWa());
+            users.setProfileFoto(uploadImage.get("url").toString());
+            users.setUsername(body.getUsername());
+            usersRepository.save(users);
+            return new SuccessResult("success update profile");
+        }
     }
 
     @Override
@@ -95,5 +112,13 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
     @Override
     public Users findByUsername(String username) {
         return usersRepository.findByUsername(username);
+    }
+
+    @Override
+    public Result updatePassword(UsersDto body, String username) {
+        Users users = usersRepository.findByUsername(username);
+        users.setPassword(bCryptPasswordEncoder.encode(body.getPassword()));
+        usersRepository.save(users);
+        return new SuccessResult("Success update password user");
     }
 }
