@@ -97,7 +97,6 @@ public class UsersServicesImpl implements UsersServices, UserDetailsService {
             users.setAlamat(body.getAlamat());
             users.setNoWa(body.getNoWa());
             users.setProfileFoto(uploadImage.get("url").toString());
-            users.setUsername(body.getUsername());
             usersRepository.save(users);
             return new SuccessResult("success update profile");
         }
